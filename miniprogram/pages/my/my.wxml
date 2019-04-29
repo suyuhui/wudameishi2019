@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="header">
+    <!-- <image bindtap='login' class="userImg" src='../images/1.png'></image> -->
+    <view class="userImg" bindtap='login'>
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <open-data class="userName" type="userNickName" lang="zh_CN"></open-data> 
+    <!-- <view class="userName">微信用户</view> -->
+    <view class="userName">{{userType}}</view>
+  </view>
+  <view class="content">
+    <view class="coupon">历史评价</view>
+    <view class="coupon">商家管理</view>
+    <view class="tel">联系开发人员</view>
+    <view class="signOut">解除认证</view>
+  </view>
+</view>
