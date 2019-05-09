@@ -1,10 +1,10 @@
 <template name="sort_list">
-  <view class="sort-list">
-      <view class="sort"
+  <view class="sort-list" hidden='{{portHidden}}'>
+      <!-- <view class="sort"
       bindtap="onOverallTag">{{sortSelected}}
       <image src="/pages/images/down.png" 
-      style="width:20rpx;height:20rpx;"></image></view>
-      <view data-index="0"
+      style="width:20rpx;height:20rpx;"></image></view> -->
+      <!-- <view data-index="0"
       bindtap="onTapTag" 
       class="sort {{selected == 0?'sort-active':''}}">
         销量最高
@@ -17,6 +17,23 @@
       <view class="sort"
       bindtap="onFilter">筛选
       <image src="/pages/images/screen.png" 
-      style="width:22rpx;height:22rpx;"></image></view>
+      style="width:22rpx;height:22rpx;"></image></view> -->
+
+      <view data-index="1"
+      bindtap="onTapTagPort" 
+      class="sort {{port_selected == 1?'sort-active':''}}">
+        人气优先
+      </view>
+      <view data-index="2"
+      bindtap="onTapTagPort" 
+      class="sort {{port_selected == 2?'sort-active':''}}">
+        评分优先
+      </view>
+      <view data-index="3"
+      bindtap="onTapTagPort" 
+      class="sort {{port_selected == 3?'sort-active':''}}">
+        销量优先
+      </view>
+
   </view>
 </template>

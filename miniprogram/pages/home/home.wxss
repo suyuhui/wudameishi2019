@@ -212,13 +212,25 @@
   width: 100%;
   line-height: 30rpx
 }
-.header-title{
-  text-align: center;
+.header-show{
+  display: flex;
+}
+.header-show .header-title{
+  /* text-align: center; */
   width: 100%;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 31rpx;
   font-weight: 600;
+  text-indent:315rpx;
+
+}
+.header-show .header-switch{
+  width:60rpx;
+  height:50rpx;
+  margin-top:auto;
+  margin-bottom:auto;
+
 }
 .sort-list{
   justify-content: space-around;
@@ -291,6 +303,14 @@
   text-align: right;
   justify-content: center;
 }
+.restaurants-info-price{
+  font-size: 25rpx;
+}
+.food-info-price{
+  font-size: 25rpx;
+  color: red;
+}
+
 .mask{
   width:100%;
   height:100%;
@@ -298,3 +318,99 @@
   z-index:999;
   background-color:rgba(15, 15, 26, 0.7);
 }
+
+
+
+.foodList{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  background: #ECECEC;
+}
+.foodList .title{
+  padding: 15rpx;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 25rpx;
+}
+.food{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 170rpx;
+  border-bottom: 1rpx solid #ECECEC; 
+  background: white;
+}
+.food::before{
+  content: "";
+  width: 15rpx;
+  height: 100%;
+  left: -15rpx;
+  top: 0;
+  border: 1px solid white;
+}
+.food .img{
+  width: 120rpx;
+  height: 120rpx;
+}
+.food-info{
+  padding-left: 15rpx;
+  line-height: 48rpx;
+  flex: 1;
+}
+.food .name{
+  font-size: 30rpx;
+}
+.food .sales{
+  font-size: 25rpx;
+  color: #ACACAC;
+}
+.food .price{
+  font-size: 30rpx;
+  color: red;
+}
+.food-numb{
+  height: 40rpx;
+  width: 130rpx;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 95rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  font-size: 25rpx;
+}
+.food-numb .add,.food-numb .remove{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 30rpx;
+  text-align: center; 
+}
+.food-numb .add{
+  font-size: 35rpx;
+  line-height: 37rpx;
+  font-weight: 700;
+  background: #FFD161;
+  margin-left: 15rpx;
+}
+.food-numb .remove{
+  font-size: 35rpx;
+  line-height: 37rpx;
+  font-weight: 700;
+  box-sizing: border-box;
+  border: 2rpx;
+  border-style: solid; 
+  border-color: #B0B0B0;
+  color: #B0B0B0;
+  margin-left: 15rpx;
+  /* margin-right: 15rpx;
+  line-height: 28rpx;
+  font-size: 60rpx;
+  font-weight: 500;*/
+  /* box-sizing: border-box;
+  border: 2rpx;
+  border-style: solid; 
+  border-color: #B0B0B0;
+  color: #B0B0B0; */
+}
+

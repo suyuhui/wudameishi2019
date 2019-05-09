@@ -113,11 +113,17 @@ Page({
         src: "/pages/images/8.png"
       }]
     },
-    selected: 0,
+    food_selected: 4,
+    port_selected: 1,
     mask1Hidden: true,
     mask2Hidden: true,
+    mask3Hidden: true,
+    wishListHidden: false,
+    foodHidden: true,
+    portHidden: false,
+    pageMode:"食堂档口",
     animationData: "",
-    location: "",
+    location: "信息学部一食堂",
     characteristicSelected: [false,false,false,false,false,false,false],
     discountSelected:null,
     selectedNumb: 0,
@@ -177,36 +183,92 @@ Page({
       })
     }
   },
-  onTapTag: function (e) {
+  onTapTagFood: function (e) {
     this.setData({
-      selected: e.currentTarget.dataset.index
+      food_selected: e.currentTarget.dataset.index
+    });
+  },
+  onTapTagPort: function (e) {
+    this.setData({ 
+      port_selected: e.currentTarget.dataset.index
     });
   },
   mask1Cancel: function () {
     this.setData({
-      mask1Hidden: true
+      mask1Hidden: true,
+      wishListHidden: false
     })
   },
   mask2Cancel: function () {
     this.setData({
-      mask2Hidden: true
+      mask2Hidden: true,
+      wishListHidden: false
+    })
+  },
+  mask3Cancel: function () {
+    this.setData({
+      mask3Hidden: true,
+      wishListHidden: false
     })
   },
   onOverallTag: function () {
     this.setData({
-      mask1Hidden: false
+      mask1Hidden: false,
+      wishListHidden: true
     })
+  },
+  onWishListTap: function () {
+
+      this.setData({
+        mask3Hidden: false,
+        wishListHidden: true
+      })
+    
   },
   onFilter: function () {
     this.setData({
-      mask2Hidden: false
+      mask2Hidden: false,
+      wishListHidden: true
     })
+  },
+  onSwitch: function () {
+    if (this.data.foodHidden==false)
+      this.setData({
+        foodHidden: true,
+        pageMode:"食堂档口"
+      })
+    else
+      this.setData({
+        foodHidden: false,
+        pageMode: "档口食品"
+      })
+    if (this.data.portHidden == false)
+      this.setData({
+        portHidden: true,
+        pageMode: "档口食品"
+      })
+    else
+      this.setData({
+        portHidden: false,
+        pageMode: "食堂档口"
+      })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    wx.request({
+      url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getAllFoodFromAPort",
+      method: "GET",
+      success: function (res) {
+        that.setData({
+          menu: res.data,
+          foodHidden: true,
+          portHidden: false,
+        })
+      }
+    });
   },
 
   /**
@@ -227,7 +289,7 @@ Page({
       success: function (res) {
         that.setData({
           restaurant: res.data.data.restaurant,
-          location: wx.getStorageSync('location')
+          // location: wx.getStorageSync('location')
         })
       }
     });

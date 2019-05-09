@@ -28,11 +28,18 @@ Page({
       })
     } else {
       // 这里修改成跳转的页面
-      wx.showToast({
-        title: '登录成功',
-        icon: 'success',
-        duration: 2000
-      })
+      wx.showModal({
+        title: '',
+        content: '登录成功了',
+        showCancel:false,
+        confirmText:'我知道了',
+        success(){
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      });
+     
     }
   }
 })

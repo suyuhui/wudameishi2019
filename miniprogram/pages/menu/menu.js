@@ -26,8 +26,7 @@ Page({
     this.setData({
       pullBar: !this.data.pullBar
     })
-  }
-  ,
+  },
   addToTrolley: function (e) {
     var info = this.data.menu;
     info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb++;
@@ -70,7 +69,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: "https://www.easy-mock.com/mock/596257bc9adc231f357c4664/restaurant/menu",
+      url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getFoods",
       method: "GET",
       success: function (res) {
         that.setData({

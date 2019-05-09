@@ -1,4 +1,4 @@
-<view class="header">
+<!-- <view class="header">
 <view class="search-input">
   <input placeholder="请输入收货地址"
    bindinput="input"></input>
@@ -21,4 +21,17 @@ bindtap="getLocation">点击定位当前位置</view>
 </view>
 <view class="myLocation">我的收货地址</view>
 <view class="LocatonInfo"></view>
-<view class="userTel"></view>
+<view class="userTel"></view> -->
+
+<view class="getLocation"
+bindtap="getLocation">信息学部一食堂</view>
+<view class="getLocation"
+bindtap="getLocation">信息学部二食堂</view>
+<view class="getLocation"
+bindtap="getLocation">信息学部三食堂</view>
+<view class="getLocation"
+bindtap="getLocation">梅园自助食堂</view>
+<view class="getLocation"
+bindtap="getLocation">梅园教工食堂</view>
+<view class="getLocation"
+bindtap="getLocation">桂园小食</view>

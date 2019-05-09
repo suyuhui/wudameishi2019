@@ -1,0 +1,19 @@
+<template name="food_sort_list">
+  <view class="sort-list" hidden='{{foodHidden}}'>
+      <view data-index="4"
+      bindtap="onTapTagFood" 
+      class="sort {{food_selected == 4?'sort-active':''}}">
+        人气优先
+      </view>
+      <view data-index="5"
+      bindtap="onTapTagFood" 
+      class="sort {{food_selected == 5?'sort-active':''}}">
+        评分优先
+      </view>
+      <view data-index="6"
+      bindtap="onTapTagFood" 
+      class="sort {{food_selected == 6?'sort-active':''}}">
+        销量优先
+      </view>
+  </view>
+</template>
