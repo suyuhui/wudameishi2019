@@ -1,18 +1,21 @@
 /* pages/order/order.wxss */
-.container{
+.container-plaza{
   height: 100%;
+    background: #ECECEC;
 }
 .plaza{
   width:100%;
 }
 .plazaList{
-  width:85%;
+  background: white;
+  width:90%;
   padding:15rpx;
   border:8rpx;
-  border-style:solid;
-  border-color:rgb(92, 176, 189);
+  /* border-style:solid;
+  border-color:rgb(92, 176, 189); */
   margin: 0 auto;
   margin-top: 30rpx;
+  margin-bottom: 30rpx;
   border-radius: 2%;
 }
 .plaza-title{
@@ -98,8 +101,9 @@ word-wrap:break-word;
   width: 100rpx;
   height: 100rpx;
   border-radius:100%;
-  border: 8rpx solid #55939C; 
+  border: 4rpx solid #55939C; 
   overflow: hidden;
+  margin-left:5px;
 }
 .plaza-title-state-display{
   height:30%;
@@ -112,7 +116,7 @@ word-wrap:break-word;
   display: flex;
   align-items: center;
   width:100%;
-
+  font-size: 28rpx;
 }
 
 .plaza-comment-content-info{
@@ -132,9 +136,9 @@ border-top:solid 1px #ECECEC;
   display:block;
   margin:0 auto;
   margin-top: 5px;
-  border-style:solid;
-  border-color:#ECECEC;
-  border-radius: 2%;
+  /* border-style:solid;
+  border-color:#ECECEC; */
+  /* border-radius: 2%; */
   padding: 10px;
 }
 
@@ -143,7 +147,7 @@ height:42rpx;
 line-height:60rpx;
 /* margin-left:30rpx; */
 text-align:right;
-font-size:30rpx;
+font-size:20rpx;
 }
 
 .plaza-content-food-info-unroll{

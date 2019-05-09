@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderList:[{
+    commentList:[{
       userName:"古丽",
       restaurantName: "传世排骨汤饭",
       state: "订单取消",

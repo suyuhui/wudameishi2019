@@ -1,4 +1,6 @@
+<import src = "./plaza_template.wxml"/>
 <template name="commentPage">
+<view class='container-commentPage-header'>
   <view class="commentPage-header">
     <view class="commentPage-score">
       <view class="overall">综合评分</view>
@@ -6,17 +8,19 @@
       <view class="rate">商家综合好评率为76%</view>
     </view>
     <view class="commentPage-rating">
-      <view class="restaurant">商家评分
+      <view class="restaurant">口味评分
         <view class="stars">★★★★★ 4</view>
       </view>
-      <view class="distribute">配送评分
+      <view class="distribute">卫生评分
+        <view class="stars">★★★★★ 4.6</view>
+      </view>
+      <view class="distribute">服务评分
         <view class="stars">★★★★★ 4.6</view>
       </view>
       </view>
   </view>
-  <view class="commentPage-category">
-    <block wx:for="{{categoryList}}" wx:key="">
-      <view class="category-item">{{item.text}}({{item.numb}})</view>
-    </block>
-  </view>
+</view>
+<view class='container-comment-plaza'>
+  <template is="plaza_template" data="{{commentList}}"/>
+</view>
 </template>
