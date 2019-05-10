@@ -1,0 +1,55 @@
+/* pages/food/food.wxss */
+.container{
+  height: 100%;
+  background: #ECECEC;
+}
+
+.food{
+  width:95%;
+  display:block;
+  margin:0 auto;
+  padding: 5px;
+}
+
+.food_header_content{
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+}
+
+.food_img{
+  width: 200rpx;
+  height: 125rpx;
+}
+
+.info{
+  font-size: 25rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info_item{
+  height: 42rpx;
+  line-height: 42rpx;
+  margin-left: 30rpx;
+}
+
+.food_detail{
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  width:100%;
+  font-size: 28rpx;
+}
+
+.food_detail_content{
+  height: 180rpx;
+  /* display: flex; */
+  align-items: center;
+  resize:none;
+  overflow:auto;
+  width:100%;
+  border-bottom:solid 1px #ECECEC;
+  border-top:solid 1px #ECECEC;
+}

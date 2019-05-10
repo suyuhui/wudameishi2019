@@ -163,6 +163,7 @@ style="height:100%" bindtap="mask3Cancel">
       </view>
     <view hidden='{{foodHidden}}'>
       <block  wx:for="{{menu.menuContent}}" wx:key="">
+      <navigator url="/pages/food/food">
         <view  class="restaurants-list">
           <view class="restaurants-info-image">
             <image class="restaurants-image" src="{{item.src}}"></image>
@@ -184,8 +185,10 @@ style="height:100%" bindtap="mask3Cancel">
             bindtap="addToTrolley" hidden="{{item.numb!=0}}" data-index="{{index}}" >+</view>
           </view>
         </view>
+      </navigator>
       </block>
     </view>
+    
   </view>
 
 

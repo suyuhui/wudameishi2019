@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="food">
+    <view class="food_header_content">
+      <image class="food_img" src="{{img_src}}"></image>
+      <view class="info">
+        <view class="info_item">{{name}}</view>
+        <view class="info_item">{{restaurant_name}}</view>
+        <view class="info_item">{{port}}</view>
+        <view class="info_item">{{evaluation}}</view>
+      </view>
+    </view>
+    <view class="food_detail">
+      <view class="food_detail_content">
+        {{detail}}
+      </view>  
+    </view>
+  </view>
+
+</view>
