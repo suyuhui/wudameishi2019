@@ -52,51 +52,48 @@ Page({
         icon: 'none',
         duration: 2000
       });
-      return;
     } else if (that.data.idNum.length == 0) {
       wx.showToast({
         title: '身份证号不能为空',
         icon: 'none',
         duration: 2000
       });
-      return;
     } else if (that.data.canteen.length == 0 || that.data.port.length == 0) {
       wx.showToast({
         title: '食堂或档口不能为空',
         icon: 'none',
         duration: 2000
       });
-      return;
+    } else {
+      const db = wx.cloud.database();
+      db.collection('user').where({ //查询账号
+        account: that.data.phone,
+        password: that.data.password
+      }).get({
+        success(res) {
+          if (res.data.length == 1) { //登录成功
+            //弹出提示框并跳转
+            wx.showModal({
+              title: '',
+              content: '登录成功',
+              showCancel: false,
+              confirmText: '我知道了',
+              success() {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            });
+          } else {  //登录失败
+            wx.showToast({
+              title: '登录失败',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        },
+      });
     }
-
-    const db = wx.cloud.database();
-    db.collection('user').where({ //查询账号
-      account: that.data.phone,
-      password: that.data.password
-    }).get({
-      success(res) {
-        if (res.data.length == 1) { //登录成功
-          //弹出提示框并跳转
-          wx.showModal({
-            title: '',
-            content: '登录成功',
-            showCancel: false,
-            confirmText: '我知道了',
-            success() {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          });
-        } else {  //登录失败
-          wx.showToast({
-            title: '登录失败',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      },
-    });
   },
 
   // 注册
@@ -108,81 +105,77 @@ Page({
         icon: 'none',
         duration: 2000
       });
-      return;
     } else if (that.data.idNum.length == 0) {
       wx.showToast({
         title: '身份证号不能为空',
         icon: 'none',
         duration: 2000
       });
-      return;
     } else if (that.data.canteen.length == 0 || that.data.port.length == 0) {
       wx.showToast({
         title: '食堂或档口不能为空',
         icon: 'none',
         duration: 2000
       });
-      return;
     } else if (that.data.image == '') {
       wx.showToast({
         title: '请选择认证图片',
         icon: 'none',
         duration: 2000
       })
-      return;
+    } else {
+      const db = wx.cloud.database();
+      db.collection('user').where({ //查询账号
+        account: that.data.phone
+      }).get({
+        success(res) {
+          if (res.data.length == 0) { //账号未注册
+            //上传认证图片
+            wx.cloud.uploadFile({
+              cloudPath: 'user/' + that.data.phone + '.jpg', // 上传至云端的路径
+              filePath: that.data.image,
+              success: res => {
+                // 返回文件 ID
+                that.setData({
+                  imageID: res.fileID
+                });
+                db.collection('user').add({ //向数据库添加记录
+                  data: {
+                    account: that.data.phone,
+                    idNum: that.data.idNum,
+                    password: that.data.password,
+                    canteen: that.data.canteen,
+                    port: that.data.port,
+                    imageID: that.data.imageID,
+                    type: 'merchant'
+                  },
+                  success(res) {
+                    //弹出提示框并跳转
+                    wx.showModal({
+                      title: '',
+                      content: '注册成功',
+                      showCancel: false,
+                      confirmText: '我知道了',
+                      success() {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      }
+                    });
+                  }
+                })
+              },
+            });
+          } else {  //账号已注册
+            wx.showToast({
+              title: '用户已存在',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        },
+      });
     }
-
-    const db = wx.cloud.database();
-    db.collection('user').where({ //查询账号
-      account: that.data.phone
-    }).get({
-      success(res) {
-        if (res.data.length == 0) { //账号未注册
-          //上传认证图片
-          wx.cloud.uploadFile({
-            cloudPath: 'user/' + that.data.phone + '.jpg', // 上传至云端的路径
-            filePath: that.data.image,
-            success: res => {
-              // 返回文件 ID
-              that.setData({
-                imageID: res.fileID
-              });
-              db.collection('user').add({ //向数据库添加记录
-                data: {
-                  account: that.data.phone,
-                  idNum: that.data.idNum,
-                  password: that.data.password,
-                  canteen: that.data.canteen,
-                  port: that.data.port,
-                  imageID: that.data.imageID,
-                  type: 'merchant'
-                },
-                success(res) {
-                  //弹出提示框并跳转
-                  wx.showModal({
-                    title: '',
-                    content: '注册成功',
-                    showCancel: false,
-                    confirmText: '我知道了',
-                    success() {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                    }
-                  });
-                }
-              })
-            },
-          });
-        } else {  //账号已注册
-          wx.showToast({
-            title: '用户已存在',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      },
-    });
   },
 
   // 选择认证图片
