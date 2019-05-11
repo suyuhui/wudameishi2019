@@ -61,14 +61,16 @@ style="height:100%" bindtap="mask3Cancel">
             <view class="restaurants-info-rating">
               <view
               class="restaurants-info-rating-stars">★ ★ ★ ★</view>
-              <view 
-              class="restaurants-info-rating-sales">月售 {{item.sales}}单</view>
+              <!-- <view class="restaurants-info-rating-sales">月售 {{item.sales}}单</view> -->
             </view>
-            <view class="restaurants-info-price">
+            <!-- <view class="restaurants-info-price">
               起送 {{item.initial_price}}¥ | 配送 {{item.distribution_price}}¥
+            </view> -->
+            <view class="restaurants-info-price">
+              月售 {{item.sales}}单
             </view>
         </view>
-        <view class="restaurants-distribution">
+        <!-- <view class="restaurants-distribution">
           <view 
           class="restaurants-distribution-distance">
             {{item.distance}}
@@ -77,7 +79,7 @@ style="height:100%" bindtap="mask3Cancel">
           class="restaurants-distribution-time">
             {{item.time}} 分钟
           </view>
-        </view>
+        </view> -->
        </view>
       </navigator>
       </block>
