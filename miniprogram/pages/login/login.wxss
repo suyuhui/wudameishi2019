@@ -23,7 +23,7 @@ page{
 .login-from {
   margin-top: 20px;
   flex: auto;
-  height:100%;
+  height: auto;
 }
  
 .inputView {
@@ -31,7 +31,7 @@ page{
   line-height: 44px;
 }
 /*输入框*/
-.nameImage, .keyImage {
+.nameImage, .keyImage, .stuNumImage {
   margin-left: 22px;
   width: 14px;
   height: 14px
@@ -69,22 +69,41 @@ page{
 }
  
 .loginBtn {
+  width: 40%;
+  height: 60%;
+  margin-top: 25px;
+}
+
+.uploader__image {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  margin-top: 15rpx;
+}
+
+.img {
   width: 50%;
+  height: 15rpx;
+}
+
+.imageBtnView {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.imageBtn {
+  width: 25%;
+  margin-top: 15rpx;
+}
+
+.merchantBtnView {
+  display: flex;
+}
+
+.merchantBtn {
+  width: 25%;
   height: 80%;
-  margin-top: 35px;
-}
-
-
-.weui-uploader__file {
-  float: left;
-  margin-right: 9px;
-   margin-top: 9px;
-}
-.weui-uploader__img {
-  display: block;
-  width: 79px;
-  height: 79px;
-}
-.weui-uploader__file_status {
-  position: relative;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
 }

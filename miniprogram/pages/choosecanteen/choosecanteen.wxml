@@ -1,0 +1,12 @@
+<view class="getLocation"
+bindtap="getLocation">信息学部一食堂</view>
+<view class="getLocation"
+bindtap="getLocation">信息学部二食堂</view>
+<view class="getLocation"
+bindtap="getLocation">信息学部三食堂</view>
+<view class="getLocation"
+bindtap="getLocation">梅园自助食堂</view>
+<view class="getLocation"
+bindtap="getLocation">梅园教工食堂</view>
+<view class="getLocation"
+bindtap="getLocation">桂园小食</view>

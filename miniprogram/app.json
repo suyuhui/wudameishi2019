@@ -6,7 +6,9 @@
     "pages/my/my",
     "pages/plaza/plaza",
     "pages/mine/mine",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/choosecanteen/choosecanteen",
+    "pages/merchantLogin/merchantLogin"
   ],
   "window": {
     "navigationBarTitleText": "武大美食助手",

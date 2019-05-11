@@ -1,0 +1,7 @@
+.getLocation{
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-bottom: 20rpx solid #F4F4F4;
+}
