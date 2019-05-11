@@ -1,20 +1,29 @@
 /* pages/food/food.wxss */
 .container{
-  height: 100%;
-  background: #ECECEC;
+height:100%;
+background:#ECECEC;
+flex-direction:column;
+display:flex;
+
 }
 
 .food{
-  width:95%;
+  width:90%;
   display:block;
   margin:0 auto;
   padding: 5px;
+  height:30%;
+  background:white;
+  margin-top:10rpx;
+  border-radius:2%;
 }
 
 .food_header_content{
-  height: 180rpx;
-  display: flex;
-  align-items: center;
+width:80%;
+display:flex;
+align-items:center;
+margin-left:4%;
+
 }
 
 .food_img{
@@ -36,11 +45,13 @@
 }
 
 .food_detail{
-  height: 180rpx;
-  display: flex;
-  align-items: center;
-  width:100%;
-  font-size: 28rpx;
+height:180rpx;
+display:flex;
+align-items:center;
+width:95%;
+font-size:28rpx;
+margin:0 auto;
+
 }
 
 .food_detail_content{
@@ -55,8 +66,8 @@
 }
 
 .container-plaza{
-  height: 100%;
-    background: #ECECEC;
+  height: 68%;
+  background: #ECECEC;
 }
 .plaza{
   width:100%;
@@ -214,4 +225,9 @@ font-size:20rpx;
   display:block;
   margin:0 auto;
   padding: 5px;
+}
+
+.insulator{
+margin-top:2%;
+
 }

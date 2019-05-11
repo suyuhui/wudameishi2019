@@ -284,3 +284,36 @@ justify-content:space-around;
 .container-comment-plaza{
   height: 83%;
 }
+
+.filterList-footer{
+  height: 90rpx;
+  display: flex;
+  background: white;
+}
+.filterList-footer-delect{
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+}
+.filterList-footer-finish{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 35rpx;
+  width: 210rpx;
+  background: #FFD161; 
+  position: relative;
+}
+.filterList-footer-finish-number{
+  height: 30rpx;
+  width: 30rpx;
+  line-height: 31rpx;
+  font-size: 25rpx;
+  margin-left: 15rpx;
+  color: #FFD161;
+  border-radius: 50%;
+  background: black; 
+}

@@ -29,31 +29,57 @@ Page({
     selected: 0,
     howMuch: 12,
     cost: 0,
-    pullBar: false
+    pullBar: false,
+    wishList: [],
+    wishListHidden:true,
   },
+
   pullBar: function () {
     this.setData({
       pullBar: !this.data.pullBar
     })
   },
+
+
   addToTrolley: function (e) {
     var info = this.data.menu;
-    info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb++;
+    info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb = 1;
     this.setData({
       cost: this.data.cost + this.data.menu[this.data.selected].menuContent[e.currentTarget.dataset.index].price,
       menu: info,
+    });
+    wishListMap = wishListMap.set(info[this.data.selected].menuContent[e.currentTarget.dataset.index].id_food,1);
+    wx.setStorageSync('wishListMap', JSON.stringify(strMapToObj(wishListMap)));
+    addItemToWishList(info[this.data.selected].menuContent[e.currentTarget.dataset.index]);
+    this.setData({
+      wishList: wx.getStorageSync("wishList"),
     })
   },
+
+
   removeFromTrolley: function (e) {
     var info = this.data.menu;
     if (info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb != 0) {
-      info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb--;
+      info[this.data.selected].menuContent[e.currentTarget.dataset.index].numb = 0;
       this.setData({
         cost: this.data.cost - this.data.menu[this.data.selected].menuContent[e.currentTarget.dataset.index].price,
         menu: info,
+      });
+      var id_food = info[this.data.selected].menuContent[e.currentTarget.dataset.index].id_food;
+      wishListMap.delete(id_food);
+      removeItemFromWishList(id_food);
+      // wx.setStorageSync('wishListMap', );
+      wx.setStorage({
+        key: 'wishListMap',
+        data: JSON.stringify(strMapToObj(wishListMap)),
+      })
+      this.setData({
+        wishList: wx.getStorageSync("wishList"),
       })
     }
   },
+
+
   turnPage: function (e) {
     this.setData({
       currentPage: e.currentTarget.dataset.index
@@ -65,6 +91,18 @@ Page({
         currentPage: e.detail.current
       })
     }
+  },
+
+
+  goToWishList: function () {
+    this.setData({
+      wishListHidden: false
+    })
+  },
+  hideWishList: function () {
+    this.setData({
+      wishListHidden: true
+    })
   },
   turnMenu: function (e) {
     this.setData({
@@ -81,11 +119,19 @@ Page({
       url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getFoods",
       method: "GET",
       success: function (res) {
+        res.data.forEach(loadAllMenu);
         that.setData({
           menu: res.data,
+          wishList: wx.getStorageSync({
+            key: 'wishList'
+          })
         })
       }
     });
+    wishListMap = objToStrMap(JSON.parse(wx.getStorageSync("wishListMap")));
+    this.setData({
+      wishList: wx.getStorageSync("wishList"),
+    })
   },
 
   /**
@@ -130,6 +176,7 @@ Page({
 
   },
 
+
   /**
    * 用户点击右上角分享
    */
@@ -137,3 +184,64 @@ Page({
 
   }
 })
+
+var wishListMap;
+
+function loadAllMenu(item, index, arr) {
+  item.menuContent.forEach(loadWishListItem);
+}
+
+function loadWishListItem(item, index, arr) {
+  if (wishListMap.has(item.id_food)) {
+    item.numb = 1;
+  } else {
+    item.numb = 0;
+  }
+}
+
+function removeItemFromWishList(id)
+{
+  var wishList = wx.getStorageSync("wishList");
+  for (var i in wishList)
+  {
+    if (wishList[i].id_food == id) {
+      wishList.splice(i,1);
+      break;
+    }
+  }
+  wx.setStorageSync("wishList", wishList);
+};
+
+function addItemToWishList(item) {
+  var flag = 1;
+  var wishList = wx.getStorageSync("wishList");
+  for (var i in wishList) {
+    if (wishList[i].id_food == item.id_food) {
+      flag = 0;
+      break;
+    }
+  }
+  if(flag)
+  {
+    wishList.push(item);
+    wx.setStorageSync("wishList", wishList);
+  }
+};
+
+//Map 转为对象
+function strMapToObj(strMap) {
+  let obj = Object.create(null);
+  for (let [k, v] of strMap) {
+    obj[k] = v;
+  }
+  return obj;
+}
+
+//对象转为 Map
+function objToStrMap(obj) {
+  let strMap = new Map();
+  for (let k of Object.keys(obj)) {
+    strMap.set(k, obj[k]);
+  }
+  return strMap;
+};

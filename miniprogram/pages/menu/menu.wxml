@@ -1,5 +1,9 @@
 <import src = "../common/orderPage.wxml"/>
 <import src = "../common/commentPage.wxml"/>
+<import src = "../common/wishList.wxml"/>
+<view class="mask" hidden='{{wishListHidden}}'>
+  <template is="wishList" data="{{wishList}}"/>
+</view>
 <view class="container" disable-scroll="true">
   <view class="header">
     <block wx:for="{{swiperTitle}}" wx:key="">
@@ -9,7 +13,7 @@
   </view>
   <swiper class="swiper" current= "{{currentPage}}" bindchange="turnTitle">
     <swiper-item id="orderPage">
-      <template is="orderPage" data="{{menu,selected,howMuch,cost,pullBar}}"/>
+      <template is="orderPage" data="{{menu,selected,howMuch,cost,wishList}}"/>
     </swiper-item>
     <swiper-item id="commentPage">
       <template is="commentPage" data="{{commentList}}"/>

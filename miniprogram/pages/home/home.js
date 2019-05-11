@@ -115,19 +115,18 @@ Page({
     },
     food_selected: 4,
     port_selected: 1,
-    mask1Hidden: true,
-    mask2Hidden: true,
-    mask3Hidden: true,
-    wishListHidden: false,
+    wishListHidden: true,
+    wishListTriggerButtonHidden: false,
     foodHidden: true,
     portHidden: false,
-    pageMode:"食堂档口",
+    pageMode:"食堂所有档口",
     animationData: "",
     location: "信息学部一食堂",
     characteristicSelected: [false,false,false,false,false,false,false],
     discountSelected:null,
     selectedNumb: 0,
-    sortSelected: "综合排序"
+    sortSelected: "综合排序",
+    wishList: wx.getStorageSync("wishList")
   },
   finish: function () {
     var that = this;
@@ -140,6 +139,7 @@ Page({
         })
       }
     });
+
   },
   sortSelected: function (e) {
     var that = this;
@@ -205,25 +205,17 @@ Page({
       wishListHidden: false
     })
   },
-  mask3Cancel: function () {
+  hideWishList: function () {
     this.setData({
-      mask3Hidden: true,
-      wishListHidden: false
+      wishListHidden: true,
+      wishListTriggerButtonHidden:false
     })
   },
-  onOverallTag: function () {
-    this.setData({
-      mask1Hidden: false,
-      wishListHidden: true
-    })
-  },
-  onWishListTap: function () {
-
+  showWishList: function () {
       this.setData({
-        mask3Hidden: false,
-        wishListHidden: true
+        wishListHidden: false,
+        wishListTriggerButtonHidden: true
       })
-    
   },
   onFilter: function () {
     this.setData({
@@ -235,22 +227,22 @@ Page({
     if (this.data.foodHidden==false)
       this.setData({
         foodHidden: true,
-        pageMode:"食堂档口"
+        pageMode:"食堂所有档口"
       })
     else
       this.setData({
         foodHidden: false,
-        pageMode: "档口食品"
+        pageMode: "食堂所有食品"
       })
     if (this.data.portHidden == false)
       this.setData({
         portHidden: true,
-        pageMode: "档口食品"
+        pageMode: "食堂所有食品"
       })
     else
       this.setData({
         portHidden: false,
-        pageMode: "食堂档口"
+        pageMode: "食堂所有档口"
       })
   },
   /**
@@ -258,10 +250,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wishListMap = objToStrMap(JSON.parse(wx.getStorageSync("wishListMap")));
     wx.request({
       url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getAllFoodFromAPort",
       method: "GET",
       success: function (res) {
+        res.data.menuContent.forEach(loadAllMenu);
         that.setData({
           menu: res.data,
           foodHidden: true,
@@ -269,6 +263,69 @@ Page({
         })
       }
     });
+    wishListMap = objToStrMap(JSON.parse(wx.getStorageSync("wishListMap")));
+    var wish = wx.getStorageSync("wishList");
+    that.setData({
+      wishList: wish
+    });
+  },
+
+
+  addToTrolley: function (e) {
+    var info = this.data.menu;
+    info.menuContent[e.currentTarget.dataset.index].numb = 1;
+    this.setData({
+      cost: this.data.cost + this.data.menu.menuContent[e.currentTarget.dataset.index].price,
+      menu: info,
+    });
+    wishListMap = wishListMap.set(info.menuContent[e.currentTarget.dataset.index].id_food, 1);
+    wx.setStorageSync('wishListMap', JSON.stringify(strMapToObj(wishListMap)));
+    addItemToWishList(info.menuContent[e.currentTarget.dataset.index]);
+    this.setData({
+      wishList: wx.getStorageSync("wishList"),
+    })
+  },
+
+
+  removeFromTrolley: function (e) {
+    var info = this.data.menu;
+    if (info.menuContent[e.currentTarget.dataset.index].numb != 0) {
+      info.menuContent[e.currentTarget.dataset.index].numb = 0;
+      this.setData({
+        cost: this.data.cost - this.data.menu.menuContent[e.currentTarget.dataset.index].price,
+        menu: info,
+      });
+      var id_food = info.menuContent[e.currentTarget.dataset.index].id_food;
+      wishListMap.delete(id_food);
+      removeItemFromWishList(id_food);
+      // wx.setStorageSync('wishListMap', );
+      wx.setStorage({
+        key: 'wishListMap',
+        data: JSON.stringify(strMapToObj(wishListMap)),
+      })
+      this.setData({
+        wishList: wx.getStorageSync("wishList"),
+      })
+    }
+  },
+
+  removeItemInsideTrolley: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var id_food = this.data.wishList[index].id_food;
+    removeItemFromWishList(id_food);
+    for (var i in this.data.menu.menuContent)
+    {
+      if (this.data.menu.menuContent[i].id_food == id_food)
+      {
+        this.data.menu.menuContent[i].numb = 0;
+        break;
+      }
+    }
+
+    this.setData({
+      wishList: wx.getStorageSync("wishList"),
+      menu: this.data.menu
+    })
   },
 
   /**
@@ -292,6 +349,9 @@ Page({
           // location: wx.getStorageSync('location')
         })
       }
+    });
+    that.setData({
+      wishList: wx.getStorageSync("wishList")
     });
   },
 
@@ -330,3 +390,58 @@ Page({
   
   }
 })
+
+
+var wishListMap;
+
+function loadAllMenu(item, index, arr) {
+  if (wishListMap.has(item.id_food)) {
+    item.numb = 1;
+  } else {
+    item.numb = 0;
+  }
+}
+
+function removeItemFromWishList(id) {
+  var wishList = wx.getStorageSync("wishList");
+  for (var i in wishList) {
+    if (wishList[i].id_food == id) {
+      wishList.splice(i, 1);
+      break;
+    }
+  }
+  wx.setStorageSync("wishList", wishList);
+};
+
+function addItemToWishList(item) {
+  var flag = 1;
+  var wishList = wx.getStorageSync("wishList");
+  for (var i in wishList) {
+    if (wishList[i].id_food == item.id_food) {
+      flag = 0;
+      break;
+    }
+  }
+  if (flag) {
+    wishList.push(item);
+    wx.setStorageSync("wishList", wishList);
+  }
+};
+
+//Map 转为对象
+function strMapToObj(strMap) {
+  let obj = Object.create(null);
+  for (let [k, v] of strMap) {
+    obj[k] = v;
+  }
+  return obj;
+}
+
+//对象转为 Map
+function objToStrMap(obj) {
+  let strMap = new Map();
+  for (let k of Object.keys(obj)) {
+    strMap.set(k, obj[k]);
+  }
+  return strMap;
+};

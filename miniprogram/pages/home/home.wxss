@@ -222,7 +222,7 @@
   line-height: 80rpx;
   font-size: 31rpx;
   font-weight: 600;
-  text-indent:315rpx;
+  text-indent:285rpx;
 
 }
 .header-show .header-switch{
@@ -319,13 +319,11 @@
   background-color:rgba(15, 15, 26, 0.7);
 }
 
-
-
 .foodList{
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 85%;
   background: #ECECEC;
 }
 .foodList .title{

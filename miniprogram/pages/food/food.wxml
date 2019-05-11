@@ -16,7 +16,7 @@
       </view>  
     </view>
   </view>
-  
+  <view class='insulator'></view>
   <template is="plaza_template" data="{{commentList}}"/>
 
 </view>

@@ -10,7 +10,7 @@
     "pages/food/food",
     "pages/choosecanteen/choosecanteen",
     "pages/merchantLogin/merchantLogin"
-
+    
   ],
   "window": {
     "navigationBarTitleText": "武大美食助手",

@@ -28,19 +28,19 @@ scroll-y="true">
             <!-- <text class="text" 
             hidden="{{item.numb==0}}">{{item.numb}}</text> -->
             <view class="add" 
-            bindtap="addToTrolley" hidden="{{item.numb!=0}}" data-index="{{index}}" >+</view>
+            bindtap="addToTrolley" hidden="{{item.numb==1}}" data-index="{{index}}" >+</view>
           </view>
         </view>
       </block>
     </scroll-view>
-    <view class="footer {{cost!=0?'active':''}}">
+    <view class="footer {{wishList.length!=0?'active':''}}">
       <view class="howMuch">
-        <view class="img" style="background:{{cost!=0?'#FFD161':'#E7E7E7'}};">
+        <view class="img" style="background:{{wishList.length!=0?'#FFD161':'#E7E7E7'}};">
           <image src="/pages/images/trolley.png" style="width:60rpx;height:60rpx;"></image>
         </view>
-        <view class="cost" hidden="{{cost==0}}">消费{{cost}}元</view>
-        <view class="free" hidden="{{cost!=0}}">添加您想评价的商品吧～</view>
+        <view class="cost" hidden="{{wishList.length==0}}">共{{wishList.length}}件</view>
+        <view class="free" hidden="{{wishList.length!=0}}">添加您想评价的商品吧～</view>
       </view>
-      <view class="pay">{{cost!=0?'去评价':'空空如也'}}</view>      
+      <view class="pay" bindtap='goToWishList'>{{wishList.length!=0?'查看菜品':'空空如也'}}</view>     
     </view>
 </template>
