@@ -1,3 +1,4 @@
+<import src = "../common/plaza_template.wxml"/>
 <view class="container">
   <view class="food">
     <view class="food_header_content">
@@ -15,5 +16,7 @@
       </view>  
     </view>
   </view>
+  
+  <template is="plaza_template" data="{{commentList}}"/>
 
 </view>
