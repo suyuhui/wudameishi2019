@@ -18,27 +18,38 @@
       <label class="loginLab">密码</label>
       <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" />
     </view>
+    <view class="line"></view>
+
+    <!--学号-->
+    <view class="inputView">
+      <image class="stuNumImage"></image>
+      <label class="loginLab">学号</label>
+      <input class="inputText" placeholder="请输入学号" bindinput="stuNumInput" />
+    </view>
 
 
     <!-- 认证图  -->
-    <view class="weui-uploader__files">
-      <block wx:for="{{imageList}}" wx:for-item="image" wx:for-index='idx'>
-        <view class="weui-uploader__file">
-          <image class="weui-uploader__img" src="{{image}}" data-id="{{idx}}" data-src="{{image}}" bindtap="previewImage"></image>
-        </view>
-      </block>
+    <view class="uploader__image">
+      <image class='img' src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
     </view>
-    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">添加图片</button>
-
+    <view class="imageBtnView">
+    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">认证图片</button>
+    </view>
+    
  
-    <!--按钮-->
+    <!--登录按钮-->
     <view class="loginBtnView">
       <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button>
     </view>
 
-    <!--按钮-->
+    <!--注册按钮-->
     <view class="loginBtnView">
-      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">注册</button>
+      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button>
     </view>
+  </view>
+
+  <!--跳转到商家认证页面-->
+  <view class='merchantBtnView'>
+    <button class='merchantBtn' size="mini" bindtap='toMerchantLogin'>商家认证</button>
   </view>
 </scroll-view>

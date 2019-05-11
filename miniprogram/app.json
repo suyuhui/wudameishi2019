@@ -7,7 +7,14 @@
     "pages/plaza/plaza",
     "pages/mine/mine",
     "pages/login/login",
-    "pages/food/food"
+<<<<<<< HEAD
+    "pages/food/food",
+    "pages/choosecanteen/choosecanteen",
+    "pages/merchantLogin/merchantLogin"
+=======
+    "pages/choosecanteen/choosecanteen",
+    "pages/merchantLogin/merchantLogin"
+>>>>>>> 3d4257eac76a560820de0bbb1c24534c965def31
   ],
   "window": {
     "navigationBarTitleText": "武大美食助手",

@@ -1,0 +1,73 @@
+<scroll-view class="container" scroll-y="true">
+  <view class="login-icon">
+    <image class="login-img" src="../images/swiper.jpg"></image>
+  </view>
+  <view class="login-from">
+ 
+    <!--账号-->
+    <view class="inputView">
+      <image class="nameImage" src="../images/login-user.png"></image>
+      <label class="loginLab">账号</label>
+      <input class="inputText" placeholder="请输入账号" bindinput="phoneInput" />
+    </view>
+    <view class="line"></view>
+ 
+    <!--密码-->
+    <view class="inputView">
+      <image class="keyImage" src="../images/password.png"></image>
+      <label class="loginLab">密码</label>
+      <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" />
+    </view>
+    <view class="line"></view>
+
+    <!--身份证号-->
+    <view class="inputView">
+      <image class="idNumImage"></image>
+      <label class="loginLab">身份证号</label>
+      <input class="inputText" placeholder="请输入身份证号" bindinput="idNumInput" />
+    </view>
+    <view class="line"></view>
+
+    <!--食堂-->
+    <view class="inputView">
+      <image class="canteenImage"></image>
+      <label class="loginLab">食堂</label>
+      <navigator class='chooseText' url='../choosecanteen/choosecanteen'>
+        <text>请选择食堂</text>
+      </navigator>
+    </view>
+    <view class="line"></view>
+
+    <!--档口-->
+    <view class="inputView">
+      <image class="portImage"></image>
+      <label class="loginLab">档口</label>
+      <input class="inputText" placeholder="请输入档口" bindinput="portInput" />
+    </view>
+
+
+    <!-- 认证图  -->
+    <view class="uploader__image">
+      <image class='img' src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
+    </view>
+    <view class="imageBtnView">
+    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">认证图片</button>
+    </view>
+    
+ 
+    <!--登录按钮-->
+    <view class="loginBtnView">
+      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button>
+    </view>
+
+    <!--注册按钮-->
+    <view class="loginBtnView">
+      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button>
+    </view>
+  </view>
+
+  <!--跳转到学生认证页面-->
+  <view class='stuBtnView'>
+    <button class='stuBtn' size="mini" bindtap='toStuLogin'>学生认证</button>
+  </view>
+</scroll-view>
