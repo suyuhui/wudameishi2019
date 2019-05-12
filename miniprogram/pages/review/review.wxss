@@ -1,0 +1,110 @@
+/* pages/review/review.wxss */
+
+.container{
+  height:100%;
+  background:#ECECEC;
+  flex-direction:column;
+  display:flex;
+}
+
+.food-review-block{
+  width:90%;
+  display:block;
+  margin:0 auto;
+  padding: 5px;
+  height:30%;
+  background:white;
+  margin-top:10rpx;
+  border-radius:2%;
+}
+
+.food{
+  width:80%;
+  display:flex;
+  align-items:center;
+  margin-left:4%;
+}
+
+.food_info{
+  width:80%;
+  display:flex;
+  align-items:center;
+  margin-left:4%;
+}
+
+
+.food_img{
+  width: 200rpx;
+  height: 125rpx;
+}
+
+.food-info-right{
+  font-size: 25rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.food-info-right .item{
+  height: 42rpx;
+  line-height: 42rpx;
+  margin-left: 30rpx;
+}
+
+
+
+.review-area{
+  height:180rpx;
+  display:flex;
+  align-items:center;
+  width:95%;
+  font-size:28rpx;
+  margin:0 auto;
+
+}
+
+.review-in-area{
+  height: 180rpx;
+  /* display: flex; */
+  align-items: center;
+  resize:none;
+  overflow:auto;
+  width:100%;
+  border-bottom:solid 1px #ECECEC;
+  border-top:solid 1px #ECECEC;
+}
+
+.filterList-footer{
+  height: 90rpx;
+  display: flex;
+  background: white;
+}
+.filterList-footer-delect{
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+}
+.filterList-footer-finish{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 35rpx;
+  width: 210rpx;
+  background: #FFD161; 
+  position: relative;
+}
+.filterList-footer-finish-number{
+  height: 30rpx;
+  width: 30rpx;
+  line-height: 31rpx;
+  font-size: 25rpx;
+  margin-left: 15rpx;
+  color: #FFD161;
+  border-radius: 50%;
+  background: black; 
+}
+
+

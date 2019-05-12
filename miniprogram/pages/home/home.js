@@ -130,16 +130,9 @@ Page({
   },
   finish: function () {
     var that = this;
-    wx.request({
-      url: "https://www.easy-mock.com/mock/596257bc9adc231f357c4664/restaurant/filter",
-      method: "GET",
-      success: function (res) {
-        that.setData({
-          restaurant: res.data.data.restaurant,
-        })
-      }
-    });
-
+    wx.navigateTo({
+      url: '../review/review',
+    })
   },
   sortSelected: function (e) {
     var that = this;

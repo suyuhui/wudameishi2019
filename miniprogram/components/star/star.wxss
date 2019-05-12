@@ -1,0 +1,17 @@
+/* components/star/star.wxss */
+radio-group{
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 15px;
+}
+radio-group .iconfont{
+  font-size: 28px;
+  margin-right: 10rpx;
+  color: orange;
+}
+radio-group .stars{
+  line-height: 44px;
+  margin-left: 50rpx;
+}

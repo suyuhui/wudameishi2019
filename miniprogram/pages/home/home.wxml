@@ -99,11 +99,11 @@ style="height:100%" bindtap="mask3Cancel">
           </view>
           <view class="food-numb">
             <view class="remove" 
-            bindtap="removeFromTrolley"
+            catchtap="removeFromTrolley"
             hidden="{{item.numb==0}}" 
             data-index="{{index}}">-</view>
             <view class="add" 
-            bindtap="addToTrolley" hidden="{{item.numb==1}}" data-index="{{index}}" >+</view>
+            catchtap="addToTrolley" hidden="{{item.numb==1}}" data-index="{{index}}" >+</view>
           </view>
         </view>
         </navigator>

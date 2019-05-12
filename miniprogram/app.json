@@ -9,7 +9,8 @@
     "pages/login/login",
     "pages/food/food",
     "pages/choosecanteen/choosecanteen",
-    "pages/merchantLogin/merchantLogin"
+    "pages/merchantLogin/merchantLogin",
+    "pages/review/review"
     
   ],
   "window": {

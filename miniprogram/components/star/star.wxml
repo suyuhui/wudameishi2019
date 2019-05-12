@@ -1,0 +1,8 @@
+<!--components/star/star.wxml-->
+<radio-group bindchange="radioChange">
+   <label wx:for="{{radioItems}}" wx:key="value">
+       <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+       <view class="iconfont {{item.classname}}"></view>
+   </label>
+   <view class='stars'>{{stars}}分</view>
+</radio-group>
