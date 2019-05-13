@@ -5,114 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    characteristicList:[{
-      text: "近期热门"
-    },{
-      text: "口碑之选"
-    },{
-      text: "新选择"
-    },{
-      text: "品牌商家"
-    },{
-      text: "跨天预定"
-    }],
-    sortList:[{
-      sort: "综合排序",
-      image:"",
-    }, {
-      sort: "速度最快",
-      image: "",
-    }, {
-      sort: "评分最高",
-      image: "",
-    }, {
-      sort: "起送价最低",
-      image: "",
-    }, {
-      sort: "配送费最低",
-      image: "",
-    }],
-    discountList:[{
-      icon: "减",
-      iconColor: "#FF635B", 
-      text: "满减优惠"
-    },{
-      icon: "领",
-      iconColor: "#FF7298", 
-      text: "进店领券"
-    },{
-      icon: "返",
-      iconColor: "#FB4343", 
-      text: "满返代金券"
-    },{
-      icon: "折",
-      iconColor: "#C183E2", 
-      text: "折扣商品"
-    },{
-      icon: "订",
-      iconColor: "#6FDF64", 
-      text: "提前下单优惠"
-    },{
-      icon: "赠",
-      iconColor: "#FDC41E", 
-      text: "满赠活动"
-    },{
-      icon: "免",
-      iconColor: "#43B697", 
-      text: "满免配送"
-    }],
-    categoryList:{
-      pageone:[{
-        name: "美食",
-        src: "/pages/images/1.png"
-      }, {
-        name: "甜点饮品",
-        src: "/pages/images/2.png"
-      }, {
-        name: "美团超市",
-        src: "/pages/images/3.png"
-      }, {
-        name: "正餐精选",
-        src: "/pages/images/4.png"
-      }, {
-        name: "生鲜果蔬",
-        src: "/pages/images/5.png"
-      }, {
-        name: "全部商家",
-        src: "/pages/images/6.png"
-      }, {
-        name: "免配送费",
-        src: "/pages/images/7.png"
-      }, {
-        name: "新商家",
-        src: "/pages/images/8.png"
-      }],
-      pagetwo: [{
-        name: "美食",
-        src: "/pages/images/1.png"
-      }, {
-        name: "甜点饮品",
-        src: "/pages/images/2.png"
-      }, {
-        name: "美团超市",
-        src: "/pages/images/3.png"
-      }, {
-        name: "正餐精选",
-        src: "/pages/images/4.png"
-      }, {
-        name: "生鲜果蔬",
-        src: "/pages/images/5.png"
-      }, {
-        name: "全部商家",
-        src: "/pages/images/6.png"
-      }, {
-        name: "免配送费",
-        src: "/pages/images/7.png"
-      }, {
-        name: "新商家",
-        src: "/pages/images/8.png"
-      }]
-    },
     food_selected: 4,
     port_selected: 1,
     wishListHidden: true,
@@ -126,55 +18,14 @@ Page({
     discountSelected:null,
     selectedNumb: 0,
     sortSelected: "综合排序",
-    wishList: wx.getStorageSync("wishList")
+    wishList: wx.getStorageSync("wishList"),
+    added_foods_amount: wx.getStorageSync('added_foods_amount'),
   },
   finish: function () {
     var that = this;
     wx.navigateTo({
       url: '../review/review',
     })
-  },
-  sortSelected: function (e) {
-    var that = this;
-    wx.request({
-      url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/allRestaurant",
-      method: "GET",
-      success: function (res) {
-        that.setData({
-          restaurant: res.data.data.restaurant,
-          sortSelected: that.data.sortList[e.currentTarget.dataset.index].sort
-        })
-      }
-    });
-  },
-  clearSelectedNumb: function () {
-    this.setData({
-      characteristicSelected: [false],
-      discountSelected: null,
-      selectedNumb: 0
-    })
-  },
-  characteristicSelected: function (e) {
-    var info = this.data.characteristicSelected;
-    info[e.currentTarget.dataset.index] = !info[e.currentTarget.dataset.index];
-    this.setData({
-      characteristicSelected: info,
-      selectedNumb: this.data.selectedNumb + (info[e.currentTarget.dataset.index]?1:-1)
-    })
-    console.log(e.currentTarget.dataset.index);
-  },
-  discountSelected: function (e) {
-    if (this.data.discountSelected != e.currentTarget.dataset.index){
-      this.setData({
-        discountSelected: e.currentTarget.dataset.index,
-        selectedNumb: this.data.selectedNumb+(this.data.discountSelected==null?1:0)
-      })
-    }else{
-      this.setData({
-        discountSelected: null,
-        selectedNumb: this.data.selectedNumb - 1
-      })
-    }
   },
   onTapTagFood: function (e) {
     this.setData({
@@ -270,7 +121,9 @@ Page({
     this.setData({
       cost: this.data.cost + this.data.menu.menuContent[e.currentTarget.dataset.index].price,
       menu: info,
+      added_foods_amount: parseInt(this.data.added_foods_amount + 1)
     });
+    wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
     wishListMap = wishListMap.set(info.menuContent[e.currentTarget.dataset.index].id_food, 1);
     wx.setStorageSync('wishListMap', JSON.stringify(strMapToObj(wishListMap)));
     addItemToWishList(info.menuContent[e.currentTarget.dataset.index]);
@@ -287,7 +140,9 @@ Page({
       this.setData({
         cost: this.data.cost - this.data.menu.menuContent[e.currentTarget.dataset.index].price,
         menu: info,
+        added_foods_amount: parseInt(this.data.added_foods_amount - 1)
       });
+      wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
       var id_food = info.menuContent[e.currentTarget.dataset.index].id_food;
       wishListMap.delete(id_food);
       removeItemFromWishList(id_food);
@@ -302,9 +157,14 @@ Page({
     }
   },
 
-  removeItemInsideTrolley: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var id_food = this.data.wishList[index].id_food;
+  removeItemInsideTrolley: function (e,k) {
+    var indexOfPort = e.currentTarget.dataset.index[0];
+    var indexOfFood = e.currentTarget.dataset.index[1];
+    var id_food = this.data.wishList[indexOfPort].foods[indexOfFood].id_food;
+    this.setData({
+      added_foods_amount: parseInt(this.data.added_foods_amount - 1)
+    });
+    wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
     removeItemFromWishList(id_food);
     for (var i in this.data.menu.menuContent)
     {
@@ -334,7 +194,7 @@ Page({
   onShow: function () {
     var that = this;
     wx.request({
-      url: "https://www.easy-mock.com/mock/596257bc9adc231f357c4664/restaurant/info",
+      url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/allRestaurant",
       method: "GET",
       success: function (res) {
         that.setData({
@@ -397,28 +257,44 @@ function loadAllMenu(item, index, arr) {
 
 function removeItemFromWishList(id) {
   var wishList = wx.getStorageSync("wishList");
+
   for (var i in wishList) {
-    if (wishList[i].id_food == id) {
-      wishList.splice(i, 1);
-      break;
+    for(var j in wishList[i].foods)
+      if (wishList[i].foods[j].id_food == id) {
+        wishList[i].foods.splice(j, 1);
+        if (wishList[i].foods.length==0)
+        {
+          wishList.splice(i, 1);
+        }
+        break;
+      }
     }
-  }
   wx.setStorageSync("wishList", wishList);
 };
 
 function addItemToWishList(item) {
-  var flag = 1;
+  var flag = 1; //判断wishlist内部有没有item，防止重复添加
   var wishList = wx.getStorageSync("wishList");
   for (var i in wishList) {
-    if (wishList[i].id_food == item.id_food) {
+    if (wishList[i].id_port == item.id_port) {
+      wishList[i].foods.push(item);
       flag = 0;
       break;
     }
   }
   if (flag) {
-    wishList.push(item);
-    wx.setStorageSync("wishList", wishList);
+    var newPort = {
+      "id_port": item.id_port,
+      "name": item.port_name,
+      "src": "http://i4.piimg.com/601998/a014d6160fd7b504.jpg",
+      foods:[
+        item,
+      ]
+    };
+    wishList.push(newPort);
+    
   }
+  wx.setStorageSync("wishList", wishList);
 };
 
 //Map 转为对象

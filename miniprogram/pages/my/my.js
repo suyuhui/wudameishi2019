@@ -147,5 +147,9 @@ Page({
     wx.navigateTo({
       url: '../login/login'//实际路径要写全
     })
+  },
+
+  syncHeader : function(){
+    
   }
 })

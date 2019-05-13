@@ -32,6 +32,10 @@ Page({
     pullBar: false,
     wishList: [],
     wishListHidden:true,
+    port_name:'',
+    id_port: '',
+    port_src:'',
+    added_foods_amount: wx.getStorageSync('added_foods_amount'),
   },
 
   pullBar: function () {
@@ -47,10 +51,37 @@ Page({
     this.setData({
       cost: this.data.cost + this.data.menu[this.data.selected].menuContent[e.currentTarget.dataset.index].price,
       menu: info,
+      added_foods_amount: parseInt(this.data.added_foods_amount + 1)
     });
+    wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
     wishListMap = wishListMap.set(info[this.data.selected].menuContent[e.currentTarget.dataset.index].id_food,1);
     wx.setStorageSync('wishListMap', JSON.stringify(strMapToObj(wishListMap)));
-    addItemToWishList(info[this.data.selected].menuContent[e.currentTarget.dataset.index]);
+
+
+    var item = info[this.data.selected].menuContent[e.currentTarget.dataset.index];
+    var flag = 1; //判断wishlist内部有没有item，防止重复添加
+
+    var wishList = wx.getStorageSync("wishList");
+    for (var i in wishList) {
+      if (wishList[i].id_port == this.data.id_port) {
+        wishList[i].foods.push(item);
+        flag = 0;
+        break;
+      }
+    }
+    if (flag) {
+      var newPort = {
+        "id_port": this.data.id_port,
+        "name": this.data.port_name,
+        "src": this.data.port_src,
+        foods: [
+          item,
+        ]
+      };
+      wishList.push(newPort);
+      
+    }
+    wx.setStorageSync("wishList", wishList);
     this.setData({
       wishList: wx.getStorageSync("wishList"),
     })
@@ -64,7 +95,9 @@ Page({
       this.setData({
         cost: this.data.cost - this.data.menu[this.data.selected].menuContent[e.currentTarget.dataset.index].price,
         menu: info,
+        added_foods_amount: parseInt(this.data.added_foods_amount - 1)
       });
+      wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
       var id_food = info[this.data.selected].menuContent[e.currentTarget.dataset.index].id_food;
       wishListMap.delete(id_food);
       removeItemFromWishList(id_food);
@@ -93,23 +126,25 @@ Page({
     }
   },
 
-
   goToWishList: function () {
     this.setData({
       wishListHidden: false
     })
   },
+
   hideWishList: function () {
     this.setData({
       wishListHidden: true
     })
   },
+
   turnMenu: function (e) {
     this.setData({
       selected: e.currentTarget.dataset.index
     })
     console.log(e.currentTarget.dataset.index);
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -122,9 +157,10 @@ Page({
         res.data.forEach(loadAllMenu);
         that.setData({
           menu: res.data,
-          wishList: wx.getStorageSync({
-            key: 'wishList'
-          })
+          wishList: wx.getStorageSync('wishList'),
+          port_name: options.port_name,
+          id_port: options.id_port,
+          port_src: options.port_src
         })
       }
     });
@@ -132,6 +168,7 @@ Page({
     this.setData({
       wishList: wx.getStorageSync("wishList"),
     })
+    that = this;
   },
 
   /**
@@ -176,13 +213,41 @@ Page({
 
   },
 
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+
+  removeItemInsideTrolley: function(e, k) {
+    var indexOfPort = e.currentTarget.dataset.index[0];
+    var indexOfFood = e.currentTarget.dataset.index[1];
+    var id_food = this.data.wishList[indexOfPort].foods[indexOfFood].id_food;
+    removeItemFromWishList(id_food);
+    this.setData({
+      added_foods_amount: parseInt(this.data.added_foods_amount - 1)
+    })
+    wx.setStorageSync('added_foods_amount', this.data.added_foods_amount)
+    for(var i in this.data.menu) {
+      for (var j in this.data.menu[i].menuContent) {
+      var temp = 0;
+      if (this.data.menu[i].menuContent[j].id_food == id_food) {
+        this.data.menu[i].menuContent[j].numb = 0;
+        temp = 1;
+        break;
+      }
+      if(temp) break;
+    }
+}
+  this.setData({
+    added_foods_amount: this.data.added_foods_amount - 1,
+    wishList: wx.getStorageSync("wishList"),
+    menu: this.data.menu
+  })
+}
+
 })
 
 var wishListMap;
@@ -199,34 +264,23 @@ function loadWishListItem(item, index, arr) {
   }
 }
 
-function removeItemFromWishList(id)
-{
-  var wishList = wx.getStorageSync("wishList");
-  for (var i in wishList)
-  {
-    if (wishList[i].id_food == id) {
-      wishList.splice(i,1);
-      break;
-    }
-  }
-  wx.setStorageSync("wishList", wishList);
-};
+var id_port;
 
-function addItemToWishList(item) {
-  var flag = 1;
+function removeItemFromWishList(id) {
   var wishList = wx.getStorageSync("wishList");
   for (var i in wishList) {
-    if (wishList[i].id_food == item.id_food) {
-      flag = 0;
-      break;
-    }
+    for (var j in wishList[i].foods)
+      if (wishList[i].foods[j].id_food == id) {
+        wishList[i].foods.splice(j, 1);
+        if (wishList[i].foods.length == 0) {
+          wishList.splice(i, 1);
+        }
+        break;
+      }
   }
-  if(flag)
-  {
-    wishList.push(item);
-    wx.setStorageSync("wishList", wishList);
-  }
-};
+  wx.setStorageSync("wishList", wishList);
+}
+
 
 //Map 转为对象
 function strMapToObj(strMap) {
@@ -245,3 +299,5 @@ function objToStrMap(obj) {
   }
   return strMap;
 };
+
+
