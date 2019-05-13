@@ -12,7 +12,8 @@
     "pages/merchantLogin/merchantLogin",
     "pages/review/review",
     "components/like/like",
-    "components/star/star"
+    "components/star/star",
+    "pages/uploadFood/uploadFood"
   ],
   "window": {
     "navigationBarTitleText": "武大美食助手",

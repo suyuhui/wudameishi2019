@@ -1,0 +1,28 @@
+<!--miniprogram/pages/uploadFood/uploadFoold.wxml-->
+<view class="container">
+  <scroll-view class="input_form" scroll-y="true">
+    <!-- 菜名-->
+    <view class="input_view">
+      <label>菜名</label>
+      <input class="inputText" placeholder="请输入菜名" bindblur="handleFoodName" />
+    </view>
+
+    <!-- 价格-->
+    <view class="input_view">
+      <label>价格</label>
+      <input class="inputText" placeholder='请输入价格' bindblur="handleFoodPrice" />
+    </view>
+
+    <!-- 认证菜品图-->
+    <view class="uploader_image">
+      <image class='img' src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
+    </view>
+    <view class="imageBtnView">
+    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">菜品图片        </button>
+    </view>
+  </scroll-view>
+  <view class="filterList-footer">
+    <view class="filterList-footer-delect"></view>
+    <view class="filterList-footer-finish" bindtap="submit">上架新品</view>
+  </view>
+</view>

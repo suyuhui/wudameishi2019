@@ -147,5 +147,11 @@ Page({
     wx.navigateTo({
       url: '../login/login'//实际路径要写全
     })
+  },
+
+  upload:function(){
+    wx.navigateTo({
+      url: '../uploadFood/uploadFood'
+    })
   }
 })

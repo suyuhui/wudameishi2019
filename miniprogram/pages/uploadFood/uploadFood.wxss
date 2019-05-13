@@ -1,0 +1,55 @@
+/* miniprogram/pages/uploadFood/uploadFoold.wxss */
+
+.input_form{
+}
+
+.inputText {
+  flex: block;
+  float: left;
+  text-align: right;
+  margin-right: 22px;
+  margin-top: 11px;
+  color: #cccccc;
+  font-size: 14px;
+  width: 100px;
+  height: 25px; 
+  border: 1px solid lightgray;
+  border-radius: 12px;
+}
+
+
+
+
+
+.filterList-footer{
+  height: 8%;
+  display: flex;
+  background: white;
+}
+.filterList-footer-delect{
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+}
+.filterList-footer-finish{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 35rpx;
+  width: 210rpx;
+  background: #FFD161; 
+  position: relative;
+}
+.filterList-footer-finish-number{
+  height: 30rpx;
+  width: 30rpx;
+  line-height: 31rpx;
+  font-size: 25rpx;
+  margin-left: 15rpx;
+  color: #FFD161;
+  border-radius: 50%;
+  background: black; 
+}

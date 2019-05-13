@@ -11,7 +11,7 @@
   <view class="content">
     <view class="coupon">历史评价</view>
     <view class="coupon">商家管理</view>
-    <view class="tel">联系开发人员</view>
+    <view class="tel" bindtap="upload">联系开发人员</view>
     <view class="signOut">解除认证</view>
   </view>
 </view>
