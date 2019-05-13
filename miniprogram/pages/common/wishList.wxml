@@ -2,27 +2,32 @@
 <view class='foodtemplate'>
    <scroll-view class="foodList" scroll-y="true">
       <!-- <view class="title">{{menu[selected].typeName}}</view> -->
-      <block wx:for="{{wishList}}" wx:key="">
-        <view class="food">
-          <image class="img" src="{{item.src}}"></image>
-          <view class="food-info">
-            <view class="name">{{item.name}}</view>
-            <view class="sales">月售 {{item.sales}} 赞 {{item.rating}}
-            </view>
-            <view class="price">￥  {{item.price}}</view>
-          </view>
-          <view class="food-numb">
-            <view class="remove"
-            bindtap="removeItemInsideTrolley"
-            data-index="{{index}}">-</view>
-          </view>
+      <block wx:for="{{wishList}}" wx:key="" wx:for-item="itemOutSide" wx:for-index="itemOutSideIndex">
+        <view class='banner'>
+          {{itemOutSide.name}}
         </view>
+        <block wx:for="{{itemOutSide.foods}}" wx:key="">
+          <view class="food">
+            <image class="img" src="{{item.src}}"></image>
+            <view class="food-info">
+              <view class="name">{{item.name}}</view>
+              <view class="sales">月售 {{item.sales}} 赞 {{item.rating}}
+              </view>
+              <view class="price">￥  {{item.price}}</view>
+            </view>
+            <view class="food-numb">
+              <view class="remove"
+              bindtap="removeItemInsideTrolley"
+              data-index="{{[itemOutSideIndex,index]}}">-</view>
+            </view>
+          </view>
+        </block>
       </block>
     </scroll-view>
     <view class="filterList-footer">
     <view class="filterList-footer-delect">清空所有</view>
-    <view class="filterList-footer-finish" bindtap="{{wishList.length==0?'null':'finish'}}">{{wishList.length==0?'啥都没有':'去评价'}}
-    <view class="filterList-footer-finish-number" hidden="{{wishList.length==0}}">{{wishList.length}}
+    <view class="filterList-footer-finish" bindtap="{{added_foods_amount==0?'null':'finish'}}">{{added_foods_amount==0?'啥都没有':'去评价'}}
+    <view class="filterList-footer-finish-number" hidden="{{added_foods_amount==0}}">{{added_foods_amount}}
     </view>
     </view>
   </view>

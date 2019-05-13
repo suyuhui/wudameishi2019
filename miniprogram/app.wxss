@@ -36,3 +36,7 @@ page{
 .blank{
   height:50%
 }
+
+.banner{
+  font-size:26rpx;
+}

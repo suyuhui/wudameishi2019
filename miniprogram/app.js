@@ -24,15 +24,18 @@ App({
       if (value) {
         // Do something with return value
         var map = new Map();
-      
         function addItemToMap(item, index, arr) {
           map.set(item.id_food, 1);
         }
-        value.forEach(addItemToMap);
+        function addPortToMap(item, index, arr) {
+          item.foods.forEach(addItemToMap);
+        }
+        value.forEach(addPortToMap);
         wx.setStorage({
           key: 'wishListMap',
           data: JSON.stringify(strMapToObj(map))
         })
+        
       }else
       {
       //   wx.request({
@@ -57,6 +60,7 @@ App({
           key: 'wishListMap',
           data: JSON.stringify(strMapToObj(map))
         })
+        wx.setStorage('added_foods_amount', 0)
       }
 
     } catch (e) {

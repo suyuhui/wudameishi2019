@@ -149,9 +149,7 @@ Page({
     })
   },
 
-  upload:function(){
-    wx.navigateTo({
-      url: '../uploadFood/uploadFood'
-    })
+
+  syncHeader : function(){
   }
 })

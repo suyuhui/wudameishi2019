@@ -17,7 +17,7 @@
 </view>
 
 <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
-  <action-sheet-item class="item" bindtap="" >同步微信头像</action-sheet-item>
+  <action-sheet-item class="item" bindtap="syncHeader" >同步微信头像</action-sheet-item>
   <view hidden="{{authorized!=0}}">
   <action-sheet-item  class="item" bindtap="login" >点我认证</action-sheet-item>
   </view>

@@ -2,7 +2,7 @@
 <import src = "../common/commentPage.wxml"/>
 <import src = "../common/wishList.wxml"/>
 <view class="mask" hidden='{{wishListHidden}}'>
-  <template is="wishList" data="{{wishList}}"/>
+  <template is="wishList" data="{{wishList,added_foods_amount}}"/>
 </view>
 <view class="container" disable-scroll="true">
   <view class="header">
@@ -13,7 +13,7 @@
   </view>
   <swiper class="swiper" current= "{{currentPage}}" bindchange="turnTitle">
     <swiper-item id="orderPage">
-      <template is="orderPage" data="{{menu,selected,howMuch,cost,wishList}}"/>
+      <template is="orderPage" data="{{menu,selected,howMuch,cost,wishList,added_foods_amount}}"/>
     </swiper-item>
     <swiper-item id="commentPage">
       <template is="commentPage" data="{{commentList}}"/>
