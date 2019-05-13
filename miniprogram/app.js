@@ -66,7 +66,43 @@ App({
     //调用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    wx.setStorageSync('logs', logs);
+    wx.cloud.init();
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        wx.setStorageSync('openid', res.result.openid);
+      }
+    })
+
+    var that = this;
+    const db = wx.cloud.database()
+    db.collection('user').where({
+      _openid: wx.getStorageSync('openid')
+    }).get({
+      success(res) {
+        if (res.data.length != 0) {
+          if(res.data[0].authorized==true){
+            wx.setStorageSync('authorized', 2);
+            wx.setStorageSync('userType', res.data[0].type);
+          }
+          else{
+            wx.setStorageSync('authorized', 1);
+          }
+        } else {
+          wx.setStorageSync('authorized', 0);
+        }
+      }
+    })
+
+    // if (!wx.getStorageSync('userInfo')) {
+    // wx.getUserInfo({
+    //   withCredentials: false,
+    //   success: function (res) {
+    //     wx.setStorageSync('userInfo', res.userInfo)
+    //   }
+    // })
+    // }
   },
   getUserInfo: function (cb) {
     var that = this
@@ -78,9 +114,12 @@ App({
         withCredentials: false,
         success: function (res) {
           that.globalData.userInfo = res.userInfo
-          typeof cb == "function" && cb(that.globalData.userInfo)
+          typeof cb == "function" && cb(that.globalData.userInfo);
+          wx.setStorageSync('userInfo', res.userInfo)
         }
-      })
+      });
+
+      
     }
   },
 

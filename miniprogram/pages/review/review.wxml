@@ -1,19 +1,47 @@
 <view class="container">
-  <scroll-view class="review-container" scroll-y="true" style="height:80%">
+  <scroll-view class="review-container" scroll-y="true">
     <view wx:for="{{wishList}}" wx:key="" class="food-review-block">
       <view class="food">
         <view class="food-info">
-          <image class="food_img" src="{{item.src}}"></image>
+          <view>
+            <image class="food-img" src="{{item.src}}"></image>
+          </view>
           <view class="food-info-right">
-            <view class="item">菜品名：{{item.name}}</view>
-            <view class="item">价格：{{item.price}}</view>
+            <view class="food-info-item">菜品名：{{item.name}}</view>
+            <view class="food-info-item">价格：{{item.price}}</view>
           </view>
         </view>
         <view class="review-area">
           <view class="review-in-area">
-            <view class="item">卫生：<star></star></view>
-            <view class="item">服务：<star></star></view>
-            <view class="item">口味：<star></star></view>
+            <view class="item">
+            <view class='item-box'>
+              卫生：<star></star>
+            </view>
+            </view>
+            <view class="item">
+            <view class='item-box'>服务：<star></star></view>
+            </view>
+            <view class="item">
+            <view class='item-box'>口味：<star></star></view>
+            </view>
+          </view>
+        </view>
+        <view class="review-area">
+          <view class="review-in-area">
+            <view class="item">
+            <view class="item-box">
+            菜品：<like></like>
+            </view>
+            </view>
+          </view>
+        </view>
+        <view class="review-area">
+          <view class="review-in-area">
+            <view class="item">
+            <view class="item-box">
+              <textarea class="item-textarea" placeholder='请输入您的评论'></textarea>
+            </view>
+            </view>
           </view>
         </view>
       </view>

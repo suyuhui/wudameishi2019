@@ -4,5 +4,5 @@
        <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
        <view class="iconfont {{item.classname}}"></view>
    </label>
-   <view class='stars'>{{stars}}分</view>
+   <view class='stars'>{{stars==1?'踩':'赞'}}</view>
 </radio-group>

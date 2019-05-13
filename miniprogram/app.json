@@ -10,8 +10,9 @@
     "pages/food/food",
     "pages/choosecanteen/choosecanteen",
     "pages/merchantLogin/merchantLogin",
-    "pages/review/review"
-    
+    "pages/review/review",
+    "components/like/like",
+    "components/star/star"
   ],
   "window": {
     "navigationBarTitleText": "武大美食助手",

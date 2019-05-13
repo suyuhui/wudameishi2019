@@ -3,15 +3,13 @@
     <image class="login-img" src="../images/swiper.jpg"></image>
   </view>
   <view class="login-from">
- 
-    <!--账号-->
+    <!--学号-->
     <view class="inputView">
-      <image class="nameImage" src="../images/login-user.png"></image>
-      <label class="loginLab">账号</label>
-      <input class="inputText" placeholder="请输入账号" bindinput="phoneInput" />
+      <image class="stuNumImage" src="../images/login-user.png"></image>
+      <label class="loginLab">学号</label>
+      <input class="inputText" placeholder="请输入学号" bindinput="stuNumInput" />
     </view>
-    <view class="line"></view>
- 
+ <view class="line"></view>
     <!--密码-->
     <view class="inputView">
       <image class="keyImage" src="../images/password.png"></image>
@@ -20,33 +18,36 @@
     </view>
     <view class="line"></view>
 
-    <!--学号-->
+    <!-- 账号
     <view class="inputView">
-      <image class="stuNumImage"></image>
-      <label class="loginLab">学号</label>
-      <input class="inputText" placeholder="请输入学号" bindinput="stuNumInput" />
+      <image class="nameImage" src="../images/login-user.png"></image>
+      <label class="loginLab">账号</label>
+      <input class="inputText" placeholder="请输入昵称" bindinput="phoneInput" />
     </view>
-
+    <view class="line"></view> -->
 
     <!-- 认证图  -->
     <view class="uploader__image">
       <image class='img' src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
     </view>
+
+
     <view class="imageBtnView">
-    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">认证图片</button>
+    <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="chooseImage">上传学生证</button>
+    <!-- <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">上传学生证</button> -->
     </view>
     
- 
-    <!--登录按钮-->
+    <!-- 登录按钮
     <view class="loginBtnView">
-      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button>
-    </view>
+      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">完成</button>
+    </view> -->
 
     <!--注册按钮-->
     <view class="loginBtnView">
-      <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button>
+      <button open-type="getUserInfo" lang="zh_CN"  class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindgetuserinfo="register">完成</button>
     </view>
   </view>
+
 
   <!--跳转到商家认证页面-->
   <view class='merchantBtnView'>
