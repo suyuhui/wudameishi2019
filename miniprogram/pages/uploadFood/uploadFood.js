@@ -81,6 +81,12 @@ Page({
     })
   },
 
+  handleFoodDescription: function (e) {
+    this.setData({
+      foodDescription: e.detail.value
+    })
+  },
+
   chooseImage: function (event) {
     var that = this;
     wx.chooseImage({
@@ -93,6 +99,16 @@ Page({
         });
       }
     })
+  },
+
+  // 预览认证图
+  previewImage: function (e) {
+    var that = this;
+    var imageList = [];
+    imageList[0] = that.data.image;
+    wx.previewImage({
+      urls: imageList
+    });
   },
 
   submit: function(e){

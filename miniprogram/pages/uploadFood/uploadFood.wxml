@@ -1,27 +1,41 @@
 <!--miniprogram/pages/uploadFood/uploadFoold.wxml-->
 <view class="container">
-  <scroll-view class="input_form" scroll-y="true">
+  <view class="input_form">
     <!-- 菜名-->
-    <view class="input_view">
-      <label>菜名</label>
-      <input class="inputText" placeholder="请输入菜名" bindblur="handleFoodName" />
-    </view>
+    <view class='food-container'>
+      <view class="input_view">
+        <view class='food-info-container'>
+          <label class="food-name">菜名</label>
+          <input class="inputText" placeholder="请输入菜名" bindblur="handleFoodName" />
+        </view>
+      </view>
 
-    <!-- 价格-->
-    <view class="input_view">
-      <label>价格</label>
-      <input class="inputText" placeholder='请输入价格' bindblur="handleFoodPrice" />
-    </view>
+      <!-- 价格-->
+      <view class="input_view">
+        <view class='food-info-container'>
+          <label>价格</label>
+          <input class="inputText" placeholder='请输入价格' bindblur="handleFoodPrice" />
+        </view>
+      </view>
 
-    <!-- 认证菜品图-->
-    <view class="uploader_image">
-      <image class='img' src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
+      <view class="review-area">
+        <view class="review-in-area">
+
+          <textarea class="item-textarea"  placeholder='请输入简介' bindblur="handleFoodDescription">
+          
+          </textarea>
+
+        </view>
+      </view>
+
+      <!-- 认证菜品图-->
+      <view class="uploader_image" hidden='{{!image}}'>
+        <image class='img' src="{{image}}" bindtap="previewImage"></image>
+      </view>
     </view>
-    <view class="imageBtnView">
-    <button class="imageBtn" type="default" size="mini" bindtap="chooseImage">菜品图片        </button>
-    </view>
-  </scroll-view>
+  </view>
   <view class="filterList-footer">
+    <view class="filterList-footer-finish" bindtap="chooseImage">菜品图片  </view>
     <view class="filterList-footer-delect"></view>
     <view class="filterList-footer-finish" bindtap="submit">上架新品</view>
   </view>
