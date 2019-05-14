@@ -151,5 +151,11 @@ Page({
 
 
   syncHeader : function(){
+  },
+  
+  upload:function(){
+    wx.navigateTo({
+      url: '../uploadFood/uploadFood'
+    })
   }
 })
