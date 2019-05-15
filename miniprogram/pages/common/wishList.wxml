@@ -4,16 +4,16 @@
       <!-- <view class="title">{{menu[selected].typeName}}</view> -->
       <block wx:for="{{wishList}}" wx:key="" wx:for-item="itemOutSide" wx:for-index="itemOutSideIndex">
         <view class='banner'>
-          {{itemOutSide.name}}
+          {{itemOutSide.port_name}}
         </view>
         <block wx:for="{{itemOutSide.foods}}" wx:key="">
           <view class="food">
-            <image class="img" src="{{item.src}}"></image>
+            <image class="img" src="{{item.img_src}}"></image>
             <view class="food-info">
-              <view class="name">{{item.name}}</view>
-              <view class="sales">月售 {{item.sales}} 赞 {{item.rating}}
+              <view class="name">{{item.food_name}}</view>
+              <view class="sales">月售 {{item.total_people}} 赞 {{item.like}}
               </view>
-              <view class="price">￥  {{item.price}}</view>
+              <view class="price">￥  {{item.food_price}}</view>
             </view>
             <view class="food-numb">
               <view class="remove"

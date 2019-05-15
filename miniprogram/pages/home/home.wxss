@@ -295,7 +295,7 @@
   height: 50rpx;
 }
 .restaurants-info-rating-sales{
-  width: 150rpx;
+  /* width: 150rpx; */
   height: 50rpx;
 }
 .restaurants-distribution{

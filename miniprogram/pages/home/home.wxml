@@ -15,7 +15,7 @@ style="height:100%" bindtap="mask3Cancel">
       <view class="heard-location">
         <image src="/pages/images/location.png" 
         class="heard-location-icon"/>
-        <text class="heard-location-text">{{location}}</text>
+        <text class="heard-location-text">{{location}}             </text>
       </view>
     </navigator>
     <view class="heard-search">
@@ -54,20 +54,20 @@ style="height:100%" bindtap="mask3Cancel">
       <navigator url="/pages/menu/menu?id_port={{item.id_port}}&port_name={{item.name}}&port_src={{item.src}}">
         <view  class="restaurants-list">
           <view class="restaurants-info-image">
-            <image src="{{item.src}}" class="restaurants-image"/>
+            <image src="{{item.port_profile}}" class="restaurants-image"/>
           </view>
           <view class="restaurants-info">
-            <view class="restaurants-info-name">{{item.name}}</view>
+            <view class="restaurants-info-name">{{item.port_name}}</view>
             <view class="restaurants-info-rating">
               <view
-              class="restaurants-info-rating-stars">★ ★ ★ ★</view>
+              class="restaurants-info-rating-stars">{{item.star}}</view>
               <!-- <view class="restaurants-info-rating-sales">月售 {{item.sales}}单</view> -->
             </view>
             <!-- <view class="restaurants-info-price">
               起送 {{item.initial_price}}¥ | 配送 {{item.distribution_price}}¥
             </view> -->
             <view class="restaurants-info-price">
-              月售 {{item.sales}}单
+              点评人数 {{item.total_people}}人
             </view>
         </view>
         <!-- <view class="restaurants-distribution">
@@ -85,17 +85,17 @@ style="height:100%" bindtap="mask3Cancel">
       </block>
       </view>
     <view hidden='{{foodHidden}}'>
-      <block  wx:for="{{menu.menuContent}}" wx:key="">
-      <navigator url="/pages/food/food?id_port={{item.id_port}}&portName={{item.port_name}}&port_src={{item.src}}">
+      <block  wx:for="{{foods}}" wx:key="">
+      <navigator url="/pages/food/food?id_port={{item.id_port}}&portName={{item.port_name}}&port_src={{item.img_src}}">
         <view  class="restaurants-list">
           <view class="restaurants-info-image">
-            <image class="restaurants-image" src="{{item.src}}"></image>
+            <image class="restaurants-image" src="{{item.img_src}}"></image>
           </view>
           
           <view class="restaurants-info">
-            <view class="restaurants-info-name">{{item.name}}</view>
-            <view class="restaurants-info-rating-sales">月售 {{item.sales}} 赞 {{item.rating}}</view>
-            <view class="food-info-price">￥  {{item.price}}</view>
+            <view class="restaurants-info-name">{{item.food_name}}</view>
+            <view class="restaurants-info-rating-sales">总人数 {{item.total_people}} 赞 {{item.like}}</view>
+            <view class="food-info-price">￥  {{item.food_price}}</view>
           </view>
           <view class="food-numb">
             <view class="remove" 

@@ -8,62 +8,22 @@ Page({
     locationList:[],
     hidden: true
   },
-  onTap: function (e) {
-    wx.setStorageSync('location',e.currentTarget.dataset.key)
-    wx.switchTab({
-      url: '/pages/home/home'
-    })
-  },
-  getLocation: function () {
-    wx.getLocation({
-      type: 'gcj02',
-      success: function (res) {
-        var latitude = res.latitude
-        var longitude = res.longitude
-        wx.request({
-          url: 'http://api.map.baidu.com/geocoder/v2/?ak=btsVVWf0TM1zUBEbzFz6QqWF&coordtype=gcj02ll&location=' + latitude + ',' + longitude + '&output=json&pois=0',
-          method: "get",
-          success: function (res) {
-            console.log(res.data.result.formatted_address)
-            wx.setStorageSync('location', res.data.result.formatted_address.substr(res.data.result.formatted_address.indexOf('市') + 1, 10))
-          }
-        })
-      }
-    })
-    wx.switchTab({
-      url: '/pages/home/home'
-    })
-  },
-  input: function (e){
-    if(e.detail.value){
-      this.setData({
-        hidden: false
-      })
-      this.search(e.detail.value);
-    }else{
-      this.setData({
-        hidden: true
-      })
-    }
-  },
-  search: function (text){
-    var that = this;
-    wx.request({
-      url: 'http://api.map.baidu.com/place/v2/search?query=' + text +'&page_size=20&page_num=0&scope=2&region=南昌&output=json&ak=btsVVWf0TM1zUBEbzFz6QqWF',
-      success: function(res){
-        console.log(res);
-        that.setData({
-          locationList:res.data.results
-        })
-      }
-    })
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    const db = wx.cloud.database()
+    db.collection('cafeteria').get({
+      success(res) {
+        // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+        var temp = res;
+        that.setData({
+          locationList:res.data
+        })
+      }
+    })
   },
 
   /**
@@ -113,5 +73,13 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  getLocation :function(e){
+    var item = this.data.locationList[e.currentTarget.dataset.index]
+    wx.setStorageSync('id_cafe', item.id_cafeteria);
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })
