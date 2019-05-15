@@ -5,15 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    commentList:[{
-      userName:"古丽",
-      restaurantName: "传世排骨汤饭",
-      state: "订单取消",
-      price: "12",
-      date: "2017-07-14",
-      time: "12:29:12",
-      howToDistribute: "商家"
-    }]
+    commentList:[]
 
     //   commentList: [{
     //   userName: "孙俪",
@@ -28,7 +20,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.cloud.init();
+    wx.cloud.callFunction({
+      name: 'getPlazaComments'
+    }).then(res => {
+      that.setData({
+        commentList:res.result.data
+      })
+    })
   },
 
   /**
@@ -42,7 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    
   },
 
   /**
@@ -63,7 +63,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    var that = this;
+    wx.cloud.init();
+    wx.cloud.callFunction({
+      name: 'getPlazaComments'
+    }).then(res => {
+      that.setData({
+        commentList: res.result.data
+      })
+    })
   },
 
   /**

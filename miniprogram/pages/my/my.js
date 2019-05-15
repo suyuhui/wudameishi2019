@@ -157,5 +157,14 @@ Page({
     wx.navigateTo({
       url: '../uploadFood/uploadFood'
     })
+  },
+
+  cloudFunc: function(){
+    wx.cloud.init();
+    wx.cloud.callFunction({
+      name:'getPlazaComments'
+    }).then(res=>{
+      console.log(res.result)
+    })
   }
 })

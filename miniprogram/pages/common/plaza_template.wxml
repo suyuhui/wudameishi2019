@@ -8,10 +8,10 @@
          src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
         <view class='plaza-title-userName-detail'>
         <view class="plaza-title-userName">
-          {{item.userName}}
+          {{item.user_name}}
         </view>
           <view class="plaza-title-state">
-            <view class='plaza-title-state-display'>{{item.date}} {{item.time}}</view> 
+            <view class='plaza-title-state-display'>{{item.time}}</view> 
           </view>
         </view>
       </view>
@@ -27,13 +27,12 @@
               Ta的评价：
             </view>
             <view class="plaza-content-info-howToDistribute">
-              整体：3.5 口味：3.5 服务：3.5
+              整体：{{item.port_clean_rate}} 口味：{{item.port_taste_rate}} 服务：{{item.port_service_rate}}
             </view>
           </view> 
         </view>
         <view class="plaza-comment-content">
-          <view class="plaza-comment-content-info">信息学部一食堂，非常不错，div{ text-align:left } div标签对象内内容（图片和文字等）将靠左对齐div{ text-align:right} div标签内内容（图片和文字等）将靠右对齐
-  div{ text-align:center } div标签内内容（图片和文字等）将居中对齐
+          <view class="plaza-comment-content-info">{{item.port_comment}}
           </view>
         </view>
         
@@ -41,46 +40,28 @@
               展开菜品详情
         </view>
       </view>
-      <view class='plaza-food'>
+      <view class='plaza-food' wx:for="{{item.foods}}" wx:key="">
         <view class='plaza-content-food'>
           <view class="plaza-content">
             <image class="plaza-content-restaurantImg"
             src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
             <view class="plaza-content-info">
               <view class="plaza-content-info-howToDistribute">
-                辣子鸡丁
+                {{item.food_name}}
               </view>
               <view class="plaza-content-info-howToDistribute">
-                Ta觉得很赞
+                Ta觉得很{{item.food_like? "赞" :"差"}}
               </view>
             </view> 
           </view>
           <view class="plaza-comment-content">
-            <view class="plaza-comment-content-info">信息学部一食堂，非常不错，div{ text-align:left } div标签对象内内容（图片和文字等）将靠左对齐div{ text-align:right} div标签内内容（图片和文字等）将靠右对齐
-    div{ text-align:center } div标签内内容（图片和文字等）将居中对齐
+            <view class="plaza-comment-content-info">
+              {{item.food_comment}}
             </view>
           </view>
         </view>
 
-        <view class='plaza-content-food'>
-          <view class="plaza-content">
-            <image class="plaza-content-restaurantImg"
-            src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
-            <view class="plaza-content-info">
-              <view class="plaza-content-info-howToDistribute">
-                辣子鸡丁
-              </view>
-              <view class="plaza-content-info-howToDistribute">
-                Ta觉得很赞
-              </view>
-            </view> 
-          </view>
-          <view class="plaza-comment-content">
-            <view class="plaza-comment-content-info">信息学部一食堂，非常不错，div{ text-align:left } div标签对象内内容（图片和文字等）将靠左对齐div{ text-align:right} div标签内内容（图片和文字等）将靠右对齐
-    div{ text-align:center } div标签内内容（图片和文字等）将居中对齐
-            </view>
-          </view>
-        </view>
+        
       </view>
     </view>
   </block>
