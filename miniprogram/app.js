@@ -3,6 +3,7 @@ var app = getApp();
 App({
   
   onLaunch: function () {
+    wx.cloud.init();
     // wx.getLocation({
     //   type: 'gcj02',
     //   success: function (res) {
@@ -21,6 +22,7 @@ App({
 
     try {
       var value = wx.getStorageSync('wishList')
+      
       if (value) {
         // Do something with return value
         var map = new Map();
@@ -63,6 +65,8 @@ App({
         wx.setStorage('added_foods_amount', 0)
       }
 
+      
+
     } catch (e) {
 
     }
@@ -71,7 +75,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs);
-    wx.cloud.init();
+    
     wx.cloud.callFunction({
       name: 'login',
       complete: res => {

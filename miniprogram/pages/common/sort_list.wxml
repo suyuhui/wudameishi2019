@@ -22,17 +22,17 @@
       <view data-index="1"
       bindtap="onTapTagPort" 
       class="sort {{port_selected == 1?'sort-active':''}}">
-        人气优先
+        总评优先
       </view>
       <view data-index="2"
       bindtap="onTapTagPort" 
       class="sort {{port_selected == 2?'sort-active':''}}">
-        评分优先
+        口味优先
       </view>
       <view data-index="3"
       bindtap="onTapTagPort" 
       class="sort {{port_selected == 3?'sort-active':''}}">
-        销量优先
+        最多人去
       </view>
 
   </view>

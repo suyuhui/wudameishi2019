@@ -10,8 +10,8 @@
   </view>
   <view class="content">
     <view class="coupon">历史评价</view>
-    <view class="coupon">商家管理</view>
-    <view class="tel" bindtap="upload">联系开发人员</view>
+    <view class="coupon">商家上传档口头像</view>
+    <view class="tel" bindtap="upload">商家上传菜品</view>
     <view class="signOut">解除认证</view>
   </view>
 </view>
