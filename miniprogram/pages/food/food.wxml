@@ -2,21 +2,21 @@
 <view class="container">
   <view class="food">
     <view class="food_header_content">
-      <image class="food_img" src="{{img_src}}"></image>
+      <image class="food_img" src="{{food_img}}"></image>
       <view class="info">
-        <view class="info_item">{{name}}</view>
-        <view class="info_item">{{restaurant_name}}</view>
-        <view class="info_item">{{port}}</view>
-        <view class="info_item">{{evaluation}}</view>
+        <view class="info_item">{{food_info.food_name}}</view>
+        <view class="info_item">{{cafe_name}}</view>
+        <view class="info_item">{{port_name}}</view>
+        <view class="info_item">￥{{food_info.food_price}}</view>
       </view>
     </view>
     <view class="food_detail">
       <view class="food_detail_content">
-        {{detail}}
+        {{food_info.food_description}}
       </view>  
     </view>
   </view>
   <view class='insulator'></view>
-  <template is="plaza_template" data="{{commentList}}"/>
+  <template is="plaza_template" data="{{commentList,userImg,portImg,foodImg}}"/>
 
 </view>

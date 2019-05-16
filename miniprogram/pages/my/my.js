@@ -162,7 +162,10 @@ Page({
   cloudFunc: function(){
     wx.cloud.init();
     wx.cloud.callFunction({
-      name:'getPlazaComments'
+      name:'getFoodProfile',
+      data:{
+        food_id:["1","2"]
+      }
     }).then(res=>{
       console.log(res.result)
     })

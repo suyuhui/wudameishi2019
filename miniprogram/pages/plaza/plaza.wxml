@@ -1,2 +1,2 @@
 <import src = "../common/plaza_template.wxml"/>
-<template is="plaza_template" data="{{commentList}}"/>
+<template is="plaza_template" data="{{commentList,userImg,foodImg,portImg}}"/>

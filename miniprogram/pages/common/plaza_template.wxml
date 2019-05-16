@@ -5,7 +5,7 @@
     <view class="plazaList">
       <view class="plaza-title">
         <image class="plaza-content-profile"
-         src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
+         src="{{userImg[item.user_id]}}"></image>
         <view class='plaza-title-userName-detail'>
         <view class="plaza-title-userName">
           {{item.user_name}}
@@ -18,7 +18,7 @@
       <view class='plaza-port'>
         <view class="plaza-content">
           <image class="plaza-content-restaurantImg"
-          src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
+          src="{{portImg[item.port_id]}}"></image>
           <view class="plaza-content-info">
             <view class="plaza-content-info-howToDistribute">
               信息学部一食堂   一号档口
@@ -37,14 +37,13 @@
         </view>
         
         <view class="plaza-content-food-info-unroll">
-              展开菜品详情
         </view>
       </view>
       <view class='plaza-food' wx:for="{{item.foods}}" wx:key="">
         <view class='plaza-content-food'>
           <view class="plaza-content">
             <image class="plaza-content-restaurantImg"
-            src="http://i4.piimg.com/601998/9ce47f2f19d7717d.jpg"></image>
+            src="{{foodImg[item.food_id]}}"></image>
             <view class="plaza-content-info">
               <view class="plaza-content-info-howToDistribute">
                 {{item.food_name}}
