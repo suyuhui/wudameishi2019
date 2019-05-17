@@ -13,10 +13,10 @@
   </view>
   <swiper class="swiper" current= "{{currentPage}}" bindchange="turnTitle">
     <swiper-item id="orderPage">
-      <template is="orderPage" data="{{menu,selected,howMuch,cost,wishList,added_foods_amount}}"/>
+      <template is="orderPage" data="{{menu,selected,howMuch,cost,wishList,added_foods_amount,current_port}}"/>
     </swiper-item>
     <swiper-item id="commentPage">
-      <template is="commentPage" data="{{commentList}}"/>
+      <template is="commentPage" data="{{commentList,clean_score,taste_score,service_score,clean_star,taste_star,service_star,synthesis_score,synthesis_star,total_people,userImg,foodImg,portImg}}"/>
     </swiper-item>
     <swiper-item id="restaurantPage">
     

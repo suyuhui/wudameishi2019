@@ -17,6 +17,8 @@
     </view>
   </view>
   <view class='insulator'></view>
+  <view style="overflow: auto;" hidden='{{un_loaded}}'>
   <template is="plaza_template" data="{{commentList,userImg,portImg,foodImg}}"/>
+  </view>
 
 </view>

@@ -4,7 +4,16 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    nameId: {
+      type: Number
+    },
+    firstId: {
+      type: Number
+    },
+    like: {
+      type: Number,
+      value: 2
+    }
   },
 
   /**
@@ -15,7 +24,7 @@ Component({
       { classname: 'icon-pingxing', value: 1, checked: false },
       { classname: 'icon-pingxing', value: 2, checked: true },
     ],
-    stars: 2
+    like: 2
   },
 
   /**
@@ -34,9 +43,16 @@ Component({
       }
       this.setData({
         radioItems: radioItems,
-        stars: e.detail.value
+        like: e.detail.value
       });
+      this.likeChange();
     },
-
+    likeChange() {
+      this.triggerEvent('likeChange', {
+        like: this.properties.like,
+        nameId: this.properties.nameId,
+        firstId: this.properties.firstId,
+      })
+    },
   }
 })

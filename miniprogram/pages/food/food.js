@@ -6,7 +6,8 @@ Page({
   data: {
     commentList: [{
 
-    }]
+    }],
+    un_loaded : true
   },
 
   /**
@@ -139,7 +140,8 @@ Page({
             idx++;
           }
           that.setData({
-            portImg: portImg
+            portImg: portImg,
+            un_loaded:false,
           })
         })
       })

@@ -51,8 +51,8 @@ style="height:100%" bindtap="mask3Cancel">
     <view class="restaurantsList">
     <view hidden='{{portHidden}}'>
     <block  wx:for="{{restaurant}}" wx:key="">
-      <navigator url="/pages/menu/menu?id_port={{item.id_port}}&port_name={{item.name}}&port_src={{item.src}}">
-        <view  class="restaurants-list">
+<navigator url="/pages/menu/menu?id_port={{item.id_port}}&port_name={{item.name}}&port_src={{item.src}}">
+        <view  class="restaurants-list" bindtap='guideToPortPage' data-index='{{index}}'>
           <view class="restaurants-info-image">
             <image src="{{item.port_profile}}" class="restaurants-image"/>
           </view>
@@ -61,25 +61,11 @@ style="height:100%" bindtap="mask3Cancel">
             <view class="restaurants-info-rating">
               <view
               class="restaurants-info-rating-stars">{{item.star}}</view>
-              <!-- <view class="restaurants-info-rating-sales">月售 {{item.sales}}单</view> -->
             </view>
-            <!-- <view class="restaurants-info-price">
-              起送 {{item.initial_price}}¥ | 配送 {{item.distribution_price}}¥
-            </view> -->
             <view class="restaurants-info-price">
               点评人数 {{item.total_people}}人
             </view>
         </view>
-        <!-- <view class="restaurants-distribution">
-          <view 
-          class="restaurants-distribution-distance">
-            {{item.distance}}
-          </view>
-          <view 
-          class="restaurants-distribution-time">
-            {{item.time}} 分钟
-          </view>
-        </view> -->
        </view>
       </navigator>
       </block>

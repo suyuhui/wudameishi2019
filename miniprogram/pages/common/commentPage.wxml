@@ -4,23 +4,23 @@
   <view class="commentPage-header">
     <view class="commentPage-score">
       <view class="overall">综合评分</view>
-      4.3
-      <view class="rate">商家综合好评率为76%</view>
+      {{synthesis_score}}
+      <view class="rate">商家总点评人数 {{total_people}}人</view>
     </view>
     <view class="commentPage-rating">
       <view class="restaurant">口味评分
-        <view class="stars">★★★★★ 4</view>
+        <view class="stars">{{taste_star}} {{taste_score}}</view>
       </view>
       <view class="distribute">卫生评分
-        <view class="stars">★★★★★ 4.6</view>
+        <view class="stars">{{clean_star}} {{clean_score}}</view>
       </view>
       <view class="distribute">服务评分
-        <view class="stars">★★★★★ 4.6</view>
+        <view class="stars">{{service_star}} {{service_score}}</view>
       </view>
       </view>
   </view>
 </view>
 <view class='container-comment-plaza'>
-  <template is="plaza_template" data="{{commentList}}"/>
+  <template is="plaza_template" data="{{commentList,userImg,foodImg,portImg}}"/>
 </view>
 </template>

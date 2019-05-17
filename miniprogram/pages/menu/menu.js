@@ -5,15 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    commentList: [{
-      userName: "古丽",
-      restaurantName: "传世排骨汤饭",
-      state: "订单取消",
-      price: "12",
-      date: "2017-07-14",
-      time: "12:29:12",
-      howToDistribute: "商家"
-    }],
+    commentList: [],
+    userImg: {},
+    foodImg: {},
+    portImg: {},
     swiperTitle: [{
       text: "点菜",
       id: 1
@@ -34,8 +29,17 @@ Page({
     wishListHidden:true,
     port_name:'',
     id_port: '',
-    port_src:'',
+    port_src: '',
     added_foods_amount: wx.getStorageSync('added_foods_amount'),
+    current_port: wx.getStorageSync('current_port'),
+    total_people:0,
+    taste_star:"",
+    clean_star:"",
+    service_star:"",
+    synthesis_score:0,
+    taste_score:0,
+    clean_score:0,
+    service_score:0,
   },
 
   pullBar: function () {
@@ -43,7 +47,6 @@ Page({
       pullBar: !this.data.pullBar
     })
   },
-
 
   addToTrolley: function (e) {
     var info = this.data.menu;
@@ -73,6 +76,7 @@ Page({
       var newPort = {
         "id_port": this.data.id_port,
         "name": this.data.port_name,
+        'port_profile':this.data.port_profile,
         "src": this.data.port_src,
         foods: [
           item,
@@ -112,12 +116,12 @@ Page({
     }
   },
 
-
-  turnPage: function (e) {
+  turnPage: function (e) {//这个方法是用来切换food分类的，考虑扩展性，暂时保留
     this.setData({
       currentPage: e.currentTarget.dataset.index
     })
   },
+
   turnTitle: function (e) {
     if (e.detail.source == "touch") {
       this.setData({
@@ -127,9 +131,21 @@ Page({
   },
 
   goToWishList: function () {
-    this.setData({
-      wishListHidden: false
-    })
+    var temp = wx.getStorageSync('wishList')
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getWishListPic',
+      // 传给云函数的参数 这个参数随便写
+      data: {
+        'wishList': temp
+      },
+      complete: res => {
+        this.setData({
+          wishList: res.result.wishList,
+          wishListHidden: false
+        })
+      }
+    }) 
   },
 
   hideWishList: function () {
@@ -150,20 +166,171 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getFoods",
-      method: "GET",
-      success: function (res) {
-        res.data.forEach(loadAllMenu);
-        that.setData({
-          menu: res.data,
-          wishList: wx.getStorageSync('wishList'),
-          port_name: options.port_name,
-          id_port: options.id_port,
-          port_src: options.port_src
+    const db = wx.cloud.database();
+    var current_port = wx.getStorageSync('current_port')
+    db.collection('port').where({
+      _id: current_port._id
+    }).get({
+      success(res) {
+        var object = new Object();
+        object["typeName"] = "所有分类";
+        object["menuContent"] = res.data[0].foods;
+        var foods = res.data[0].foods;
+        var photos = new Array();
+        for(var i in foods){
+          photos.push(foods[i].food_profile)
+        }
+        wx.cloud.callFunction({//获取档口food的图像
+          name: 'getPictureUrl',
+          data: {
+            'files': photos
+          },
+          complete: res => {
+            for (var i in foods) {
+              foods[i].food_src = res.result[i].tempFileURL//设置档口food的图像
+            }
+            var array = new Array();
+            array.push(object);
+            array.forEach(loadAllMenu);
+            var t = [object]
+            that.setData({
+              menu: [object]
+            })
+            that.setData({//设置档口基本信息的显示
+              wishList: wx.getStorageSync('wishList'),
+              clean_score: current_port.clean_rate.toFixed(1),
+              taste_score: current_port.taste_rate.toFixed(1),
+              service_score: current_port.service_rate.toFixed(1),
+              clean_star: getStar(current_port.clean_rate, false),
+              taste_star: getStar(current_port.taste_rate, false),
+              service_star: getStar(current_port.service_rate, false),
+              synthesis_score: getSynthesisScore(current_port).toFixed(1),
+              synthesis_star: getStar(current_port, true),
+              total_people: current_port.total_people,
+              added_foods_amount: wx.getStorageSync('added_foods_amount')
+            })
+            // if (res.data[0].comments.length != 0)
+            db.collection('comment').where({
+              _id: db.command.in(res.data[0].comments)
+            }).get({//等待往其中加图片
+              success(res) {
+                that.setData({
+                  commentList: res.data
+                })
+              },
+              fail() {
+                that.setData({
+                  commentList: []
+                })
+              }
+            })
+          }
         })
       }
     });
+    // wx.request({
+    //   url: "https://www.easy-mock.com/mock/5cc6f68fc6a06e115537a642/getFoods",
+    //   method: "GET",
+    //   success: function (res) {
+    //     res.data.forEach(loadAllMenu);
+    //     that.setData({
+    //       menu: res.data,
+    //       wishList: wx.getStorageSync('wishList'),
+    //       port_name: options.port_name,
+    //       id_port: options.id_port,
+    //       port_src: options.port_src
+    //     })
+    //   }
+    // });
+
+    var that = this;
+    var userImg = {};
+    var portImg = {};
+    var foodImg = {};
+    var user_files = [];
+    var port_files = [];
+    var food_files = [];
+    wx.cloud.callFunction({
+      name: 'getPortComments',
+      data: {
+        'port_id': current_port._id
+      }
+    }).then(res => {
+      that.setData({
+        commentList: res.result.data
+      })
+      for (var comment in that.data.commentList) {
+        userImg[that.data.commentList[comment].user_id] = that.data.commentList[comment].user_profile;
+        portImg[that.data.commentList[comment].port_id] = that.data.commentList[comment].port_profile;
+        var foods = that.data.commentList[comment].foods;
+        for (var food in foods) {
+          foodImg[foods[food].food_id] = foods[food].food_profile;
+        }
+      }
+      for (var user in userImg) {
+        user_files.push(userImg[user]);
+      }
+      for (var food in foodImg) {
+        food_files.push(foodImg[food]);
+      }
+      for (var port in portImg) {
+        port_files.push(portImg[port]);
+      }
+    })
+      .then(() => {
+        wx.cloud.callFunction({
+          name: "getPictureUrl",
+          data: {
+            'files': user_files
+          }
+        }).then(res => {
+          var idx = 0;
+          for (var item in userImg) {
+            userImg[item] = res.result[idx].tempFileURL;
+            idx++;
+          }
+          that.setData({
+            userImg: userImg
+          })
+        })
+      })
+      .then(() => {
+        wx.cloud.callFunction({
+          name: "getPictureUrl",
+          data: {
+            'files': food_files
+          }
+        }).then(res => {
+          var idx = 0;
+          for (var item in foodImg) {
+            foodImg[item] = res.result[idx].tempFileURL;
+            idx++;
+          }
+          that.setData({
+            foodImg: foodImg
+          })
+        })
+      })
+      .then(() => {
+        wx.cloud.callFunction({
+          name: "getPictureUrl",
+          data: {
+            'files': port_files
+          }
+        }).then(res => {
+          var idx = 0;
+          for (var item in userImg) {
+            portImg[item] = res.result[idx].tempFileURL;
+            idx++;
+          }
+          that.setData({
+            portImg: portImg
+          })
+        })
+      })
+
+
+
     wishListMap = objToStrMap(JSON.parse(wx.getStorageSync("wishListMap")));
     this.setData({
       wishList: wx.getStorageSync("wishList"),
@@ -242,7 +409,6 @@ Page({
     }
 }
   this.setData({
-    added_foods_amount: this.data.added_foods_amount - 1,
     wishList: wx.getStorageSync("wishList"),
     menu: this.data.menu
   })
@@ -301,3 +467,36 @@ function objToStrMap(obj) {
 };
 
 
+function getSynthesisScore(e) {
+  return (e.service_rate + e.taste_rate + e.clean_rate) * 1.0 / 3
+}
+
+function getStar(e,isSynthesis) {
+  var score;
+  if(isSynthesis)
+    score = Math.round(getSynthesisScore(e))
+  else
+    score = Math.round(e)
+  switch (score) {
+    case 1:
+      {
+        return "★        ";
+      }
+    case 2:
+      {
+        return "★ ★      ";
+      }
+    case 3:
+      {
+        return "★ ★ ★    ";
+      }
+    case 4:
+      {
+        return "★ ★ ★ ★  ";
+      }
+    case 5:
+      {
+        return "★ ★ ★ ★ ★";
+      }
+  }
+}

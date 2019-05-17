@@ -1,55 +1,68 @@
 <view class="container">
-  <scroll-view class="review-container" scroll-y="true">
-    <view wx:for="{{wishList}}" wx:key="" class="food-review-block">
+  <view class="review-container">
+  <block wx:for="{{wishList}}" wx:key="" wx:for-index="itemOutSideIndex">
+    <view class="food-review-block" hidden='{{currentItem!=itemOutSideIndex}}'>
       <view class="food">
         <view class="food-info">
           <view>
-            <image class="food-img" src="{{item.src}}"></image>
+            <image class="food-img" src="{{item.img_src}}"></image>
           </view>
           <view class="food-info-right">
-            <view class="food-info-item">菜品名：{{item.name}}</view>
-            <view class="food-info-item">价格：{{item.price}}</view>
+            <view class="food-info-item">档口：{{item.port_name}}</view>
           </view>
         </view>
         <view class="review-area">
           <view class="review-in-area">
             <view class="item">
             <view class='item-box'>
-              卫生：<star></star>
+              卫生：<star nameId="{{itemOutSideIndex}}" star="{cleanStar[index]}}" bindstarChange="starCleanChange"></star>
             </view>
             </view>
             <view class="item">
-            <view class='item-box'>服务：<star></star></view>
+            <view class='item-box'>服务：<star nameId="{{itemOutSideIndex}}" star="{{serviceStar[index]}}" bindstarChange="starServiceChange"></star></view>
             </view>
             <view class="item">
-            <view class='item-box'>口味：<star></star></view>
+            <view class='item-box'>口味：<star nameId="{{itemOutSideIndex}}" star="{{tasteStar[index]}}" bindstarChange="starTasteChange"></star></view>
             </view>
           </view>
         </view>
-        <view class="review-area">
-          <view class="review-in-area">
-            <view class="item">
-            <view class="item-box">
-            菜品：<like></like>
-            </view>
-            </view>
-          </view>
-        </view>
-        <view class="review-area">
-          <view class="review-in-area">
-            <view class="item">
-            <view class="item-box">
-              <textarea class="item-textarea" placeholder='请输入您的评论'></textarea>
-            </view>
-            </view>
-          </view>
-        </view>
+        <comment nameId="{{itemOutSideIndex}}" placeholder="{{'请输入您的档口评论'}}" is_port="{{1}}" bindcommentChange="commentChange"></comment>
       </view>
     </view>
-  </scroll-view>
+</block>
+<block wx:for="{{wishList}}" wx:key="" wx:for-index="itemOutSideIndex">
+  <block wx:for="{{item.foods}}" wx:key="">
+    <view class="food-review-block" hidden='{{currentItem!=(offset[itemOutSideIndex]+wishList.length+index)}}'>
+      <view class="food">
+        <view class="food-info">
+          <view>
+            <image class="food-img" src="{{item.img_src}}"></image>
+          </view>
+          <view class="food-info-right">
+            <view class="food-info-item">{{item.food_name}}</view>
+            <view class="food-info-item">档口：{{wishList[itemOutSideIndex].port_name}}</view>
+          </view>
+        </view>
+        <view class="review-area">
+          <view class="review-in-area">
+            <view class="item">
+              <view class="item-box">
+                您喜欢吗：<like nameId="{{index}}" firstId="{{itemOutSideIndex}}" star="{{like[itemOutSideIndex][index]}}" bindlikeChange="likeChange"></like>
+              </view>
+            </view>
+          </view>
+        </view>
+        <comment nameId="{{index}}" placeholder="{{'请输入您的菜品评论'}}" firstId="{{itemOutSideIndex}}" is_port="{{0}}" bindcommentChange="commentChange"></comment>
+      </view>
+    </view>
+  </block>
+</block>
 
-  <view class="filterList-footer">
-    <view class="filterList-footer-delect"></view>
-    <view class="filterList-footer-finish" bindtap="review">提交评价</view>
+  
+</view>
+<view class="filterList-footer">
+    <view class="filterList-footer-finish" bindtap="minus">上一个</view>
+    <view class="filterList-footer-delect">{{currentItem+1}}/{{all}}</view>
+    <view class="filterList-footer-finish" bindtap="{{currentItem!=all-1?'add':'submit'}}">{{currentItem!=all-1?'下一个':'提交评论'}}</view>
   </view>
 </view>

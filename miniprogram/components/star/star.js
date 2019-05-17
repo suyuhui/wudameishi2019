@@ -4,7 +4,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    nameId: {
+      type: Number
+    },
+    stars:{
+      type:Number,
+      value:4
+    }
   },
 
   /**
@@ -39,7 +45,13 @@ Component({
         radioItems: radioItems,
         stars: e.detail.value
       });
+      this.starChange();
     },
-  
+    starChange() {
+      this.triggerEvent('starChange', {
+        stars: this.properties.stars,
+        nameId: this.properties.nameId
+      })
+    },
   }
 })

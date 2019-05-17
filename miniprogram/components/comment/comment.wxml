@@ -1,0 +1,11 @@
+<!--components/comment/comment.wxml-->
+<!-- <text>components/comment/comment.wxml</text> -->
+<view class="review-area_">
+            <view class="review-in-area_">
+              <view class="item_">
+              <view class="item-box_">
+                <textarea class="item-textarea_" bindblur='bindTextAreaBlur' placeholder='{{placeholder}}'></textarea>
+              </view>
+              </view>
+            </view>
+          </view>

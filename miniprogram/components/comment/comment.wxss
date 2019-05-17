@@ -1,0 +1,42 @@
+/* components/comment/comment.wxss */
+.item_{
+display:flex;
+margin:20rpx;
+overflow:none;
+}
+
+.item-textarea_{
+ overflow:none;
+height:200rpx;
+
+}
+
+.item-box_{
+  margin: 0 auto;
+  display:flex;
+  overflow:none;
+}
+.review-area_{
+   overflow:none;
+  /* height:180rpx; */
+  display:flex;
+  align-items:center;
+  /* width:95%; */
+  font-size:28rpx;
+  margin:0 auto;
+width:90%;
+
+}
+
+.review-in-area_{
+  overflow:none;
+  /* height: 180rpx; */
+  /* display: flex; */
+  align-items: center;
+  resize:none;
+  /* overflow:auto; */
+  width:100%;
+  border-bottom:solid 1px #ECECEC;
+  border-top:solid 1px #ECECEC;
+  z-index: 10;
+}

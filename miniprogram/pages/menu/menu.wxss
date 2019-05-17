@@ -257,7 +257,9 @@ justify-content:space-around;
   margin-top:  40rpx;
 }
 .commentPage-rating .stars{
-  margin:0 40rpx;
+  width:250rpx;
+text-align:center;
+
 }
 .commentPage-category{
   display: flex;
